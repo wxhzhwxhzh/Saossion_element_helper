@@ -163,9 +163,20 @@ function addClickEventToInputs() {
         // 监听鼠标移动事件
         document.addEventListener('mousemove', function(event) {
 
-            let daohanglan = document.getElementById("daohanglan");
+            // 设置 daohanglan 是否隐藏
+            chrome.storage.local.get('show_div', function (result) {                
+                console.log(result.show_div);
+                if (result.show_div == '显示') {
+                    document.getElementById('daohanglan').style.display = "block";
+                }else{
+                    document.getElementById('daohanglan').style.display = "none";
+                }
+        
+            });
             
-            
+            // 边缘碰撞检测
+
+            let daohanglan = document.getElementById("daohanglan");          
             
             
             setTimeout(function () {

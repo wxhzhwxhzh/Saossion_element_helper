@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库元素自动定位助手",
-    "version": "4.6",
+    "version": "4.7.1",
     "permissions":
 	[
 		"contextMenus", 
@@ -35,7 +35,12 @@
             "matches": ["<all_urls>"]
         }
     ],
-      "homepage_url": "https://gitee.com/Saossion/SaossionPage"
+      "homepage_url": "https://gitee.com/Saossion/SaossionPage",
+
+      "action": {
+        "default_popup": "popup.html"
+  
+    }
 
 
 
