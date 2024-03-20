@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>圆角动态过渡按钮示例</title>
+    <style>
+        .toggle-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 20px; /* 设置圆角半径 */
+            cursor: pointer;
+            transition: background-color 2s; /* 添加背景颜色过渡效果 */
+        }
+
+        .toggle-button.active {
+            background-color: #27ae60; /* 开启状态的背景颜色 */
+        }
+    </style>
+</head>
+<body>
+
+<button class="toggle-button" onclick="toggleButton(this)">关闭</button>
+
+<script>
+    function toggleButton(button) {
+        button.classList.toggle('active'); // 切换按钮的 active 类
+        if (button.classList.contains('active')) {
+            button.textContent = '开启';
+            // 执行开启时的操作
+            console.log("按钮已开启");
+        } else {
+            button.textContent = '关闭';
+            // 执行关闭时的操作
+            console.log("按钮已关闭");
+        }
+    }
+</script>
+
+</body>
+</html>
