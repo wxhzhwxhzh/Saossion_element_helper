@@ -40,3 +40,18 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
+
+
+/* 另一个功能区 */
+
+
+.div_kaiguan {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30%;
+}
+
+.span_kaiguan {
+    font-size: large;
+}

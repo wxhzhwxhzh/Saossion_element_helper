@@ -166,10 +166,10 @@ function addClickEventToInputs() {
             // 设置 daohanglan 是否隐藏
             chrome.storage.local.get('show_div', function (result) {                
                 console.log(result.show_div);
-                if (result.show_div == '显示') {
-                    document.getElementById('daohanglan').style.display = "block";
-                }else{
+                if (result.show_div == '隐藏') {
                     document.getElementById('daohanglan').style.display = "none";
+                }else{
+                    document.getElementById('daohanglan').style.display = "block";
                 }
         
             });

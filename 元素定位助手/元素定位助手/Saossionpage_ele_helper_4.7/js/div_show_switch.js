@@ -41,7 +41,7 @@ function toggleSwitch() {
 
 
 // 获取 on1 按钮元素并添加点击事件监听器
-console.log(document.URL);
+// console.log(document.URL);
 
 
 document.getElementById('on1').addEventListener('click', set_on);
