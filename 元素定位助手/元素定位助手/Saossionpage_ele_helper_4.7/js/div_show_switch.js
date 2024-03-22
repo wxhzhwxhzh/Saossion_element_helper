@@ -5,8 +5,10 @@ function set_on() {
 
     // 读取数据
     chrome.storage.local.get('show_div', function (result) {
-        // console.log('显示div is ' + result.show_div);
+        
         document.getElementById('ceshi').innerHTML = '->' + result.show_div;
+        document.getElementById('on1').innerHTML = '关闭信息展示栏';
+        document.getElementById('on1').style.backgroundColor = 'red'
         // console.log(result.show_div);
 
     });
@@ -19,8 +21,10 @@ function set_off() {
 
     // 读取数据
     chrome.storage.local.get('show_div', function (result) {
-        // console.log('显示div is ' + result.show_div);
+        
         document.getElementById('ceshi').innerHTML = '->' + result.show_div;
+        document.getElementById('on1').innerHTML = '开启信息展示栏';
+        document.getElementById('on1').style.backgroundColor = 'green'
         // console.log(result.show_div);
 
     });
@@ -38,14 +42,26 @@ function toggleSwitch() {
         set_on();
     }
 }
+function toggleSwitch_button() {
+        // 切换开关状态
+
+    if (document.getElementById('ceshi').innerHTML.includes('显示')) {
+
+        set_off();
+        
+    } else {
+        set_on();
+        
+    }
+}
 
 
 // 获取 on1 按钮元素并添加点击事件监听器
 // console.log(document.URL);
 
 
-document.getElementById('on1').addEventListener('click', set_on);
-document.getElementById('off1').addEventListener('click', set_off);
+document.getElementById('on1').addEventListener('click', toggleSwitch_button);
+// document.getElementById('off1').addEventListener('click', set_off);
 document.getElementById("kaiguan1").addEventListener("click", toggleSwitch);
 // 默认展示信息栏
 set_on();

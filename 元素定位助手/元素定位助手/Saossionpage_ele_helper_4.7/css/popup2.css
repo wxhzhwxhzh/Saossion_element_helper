@@ -15,12 +15,12 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 #saologo {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     vertical-align: middle;
 }
 
