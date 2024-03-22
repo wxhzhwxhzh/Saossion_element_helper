@@ -8,7 +8,24 @@
 //  把工具函数注入到网页
 injectCustomJs();  
 
+//初始化 插件本地存储变量 ‘show_div'
 
+if (typeof window.localStorage.getItem('is_init') !== 'undefined') {
+    console.log('window.localStorage.is_init 存在');
+} else {
+    console.log('window.localStorage.is_init 不存在,初始化 插件本地存储变量 ');
+
+    // 将布尔值 false 存储到 localStorage 中
+    window.localStorage.setItem('is_init', 'true');
+
+    chrome.storage.local.set({ show_div: '显示' }, function () {
+        if (chrome.runtime.lastError) {
+            console.error("存储出现错误：" + chrome.runtime.lastError);
+        } else {
+            console.log("存储成功");
+        }
+    });
+}
 
 
 //############################监听部分
@@ -139,21 +156,25 @@ function addClickEventToInputs() {
 
             var Name = "tag:" + inputElement.tagName.toLowerCase();
 
-            var text = inputElement.innerText
-
-
+            var text = inputElement.innerText;
+            
+            
             if (isBlankString(text)) {
                 text = "";
             } else {
-
+                
                 if (text.length <= 15) text = "@@text()=" + text;
                 else text = "@@text()^" + text.slice(0,10);
-
+                
             }
-
             
-            window.anotherGlobalVar = Name + attrib_info + text;           
-            info = "按F8复制元素语法-->@@" + Name + attrib_info + text 
+            window.XPath_info="xpath:"+getElementXPath(inputElement);
+            
+            window.anotherGlobalVar = Name + attrib_info + text; 
+
+            info ="<b>按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>按F8复制元素语法--></b>@@" + Name + attrib_info + text ;
+
+            // info =info +"<hr>"+"<b>按alt+1 复制XPath--></b>@@"+window.XPath_info;
   
 
         });
@@ -165,13 +186,20 @@ function addClickEventToInputs() {
 
             // 设置 daohanglan 是否隐藏
             chrome.storage.local.get('show_div', function (result) {                
-                console.log(result.show_div);
-                if (result.show_div == '隐藏') {
-                    document.getElementById('daohanglan').style.display = "none";
-                }else{
-                    document.getElementById('daohanglan').style.display = "block";
+                if (chrome.runtime.lastError) {
+                    // 处理错误的情况
+                    console.error("发生错误：" + chrome.runtime.lastError);
+                    
+                } else {
+                    
+                        
+                        if (result.show_div == '隐藏') {
+                            document.getElementById('daohanglan').style.display = "none";
+                        } else {
+                            document.getElementById('daohanglan').style.display = "block";
+                        }
+                    
                 }
-        
             });
             
             // 边缘碰撞检测
@@ -212,7 +240,7 @@ function addClickEventToInputs() {
                 
 
 
-            }, 100); // 延迟1000毫秒（即1秒）
+            }, 0); // 延迟1000毫秒（即1秒）
               // 
             // 为了计算元素内坐标，获取当前元素的位置
             // elementRect = theEle.getBoundingClientRect();
@@ -223,6 +251,9 @@ function addClickEventToInputs() {
 
             // 将坐标信息、定位语法 显示到页面上 
             let F9_info='按F9 定位动态元素'+"<hr>";
+            
+            
+
             document.getElementById('show').textContent = xyInfoDoc + F9_info + info;
             format_the_text();
         })
@@ -277,7 +308,7 @@ document.getElementById("daohanglan").addEventListener("click", function() {
 
 
 
-// 监听 F8  F9 按键
+// 监听 F8  F9 按键  alt +1
 document.addEventListener('keydown', function(event) {
     // 检查是否按下了f8键（keyCode为18）
     if (event.keyCode === 119) {
@@ -293,9 +324,44 @@ document.addEventListener('keydown', function(event) {
         alert('-骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
     }
 
+    if (event.altKey && (event.key === "1" || event.keyCode === 49)) {
+        // 在这里执行按下 alt + 1 后的操作
+        copyElementXPath();
+        copyToClipboard(window.XPath_info);
+      }
+
 });
 
 
+// 获取元素的XPath
+function getElementXPath(element) {
+    if (element && element.id) {
+        return 'id("' + element.id + '")';
+    } else {
+        let paths = [];
+        for (; element && element.nodeType == Node.ELEMENT_NODE; element = element.parentNode) {
+            let index = 0;
+            let siblings = element.parentNode.childNodes;
+            for (let i = 0; i < siblings.length; i++) {
+                let sibling = siblings[i];
+                if (sibling == element) {
+                    index++;
+                    break;
+                }
+            }
+            let tagName = element.nodeName.toLowerCase();
+            let pathIndex = (index ? "[" + (index+1) + "]" : "");
+            paths.splice(0, 0, tagName + pathIndex);
+        }
+        return paths.length ? "/" + paths.join("/") : null;
+    }
+}
+
+// 复制元素的XPath
+function copyElementXPath() {
+    alert("已经复制下面XPath语法到剪贴板 \n"+window.XPath_info);
+
+}
 
 
             
