@@ -1,0 +1,87 @@
+
+body {
+    display: flex;
+    /* justify-content: center; */
+    /* 居中 */
+    align-items: center;
+    /* 垂直排列 */
+    flex-direction: column;
+  }
+
+#main_tab{
+    width: 80%;
+    
+}
+
+.yi_hang{
+    display: flex;
+    
+    flex-direction:row;
+    padding-top: 10px;
+    padding-left: 2px;
+    /* 外边距 */
+    margin-left: 5px;   
+}
+
+#saologo{
+    height: 100px;
+}
+
+#wenben{
+    width: 100%;
+    font-family: Consolas, monospace;
+}
+
+
+/* 按钮特效 */
+.start_button {
+    padding: 8px 5px;
+    background-color: #51ac54;
+    color: white;
+    /* border: none; */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .start_button:hover {
+    background-color: #0fac17;
+    color: white;
+    /* border: 10px; */
+    border-color: rgb(241, 83, 44);
+  }
+
+
+.red_button {
+    padding: 8px 5px;
+    background-color: #ee5214;
+    color: white;
+    /* border: none; */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .red_button:hover {
+    background-color: #0fac17;
+    color: white;
+    /* border: 10px; */
+    border-color: rgb(241, 83, 44);
+  }
+
+
+
+
+
+
+/* 13 */

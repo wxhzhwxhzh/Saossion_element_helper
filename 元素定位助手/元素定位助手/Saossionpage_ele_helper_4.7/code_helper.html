@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骚神库代码生成助手</title>
+    <link href="css/code_helper.css" rel="stylesheet">
+</head>
+<body>
+   <div id="main_tab">
+
+    <div class="yi_hang">
+
+        <a target="ghelper" href="http://g1879.gitee.io/drissionpagedocs/">
+            <img id="saologo" src="img/saoshen.png" ></a>
+        <h1 style="font-family: 黑体;color: rgb(43, 14, 172);">代码生成助手 网页版</h1>
+        
+
+    </div>
+    <hr>
+
+    <div class="yi_hang">
+    ChromePage 模式  
+    </div>
+
+    <div class="yi_hang">
+        浏览器关联    
+        <input type="radio" id="option1" name="options" value="option1">
+        <label for="option1">自动选择</label>
+    
+        <input type="radio" id="option2" name="options" value="option2">
+        <label for="option2">手动选择</label>
+    
+        <input type="radio" id="option3" name="options" value="option3">
+        <label for="option3">指纹浏览器</label>
+    
+    
+    </div>
+    
+    <div class="yi_hang">
+        默认是本地谷歌浏览器
+    
+        
+        <button type="button" style="margin-left: 15px;">选择浏览器...</button>
+        <label>.....</label>
+        
+    
+    </div>
+
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">启动前设置</span>
+    
+        
+        <input type="checkbox" id="check1" name="checkbox" value="check1">
+        <label for="check1">无头</label>
+        
+        
+        <input type="checkbox" id="check2" name="checkbox" value="check2">
+        <label for="check2">静音</label>
+        
+        
+        <input type="checkbox" id="check3" name="checkbox" value="check3">
+        <label for="check3">多开</label>
+
+        <input type="checkbox" id="check4" name="checkbox" value="check4">
+        <label for="check4">忽略证书错误</label>
+        
+        <input type="checkbox" id="check5" name="checkbox" value="check5">
+        <label for="check5">静音</label>
+    
+    </div>
+
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">UA设置</span>
+    
+        <select>
+            <option value="option1">PC</option>
+            <option value="option2">苹果</option>
+            <option value="option3">安卓</option>
+        </select>
+    
+    </div>
+
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">代理地址</span>
+
+        <input type="text" placeholder="http://ip:port">
+
+    </div>
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">cookie</span>
+
+        <input type="text" placeholder="格式是 name1=value1; name2=value2; path=/; domain=.example.com">
+
+    </div>
+
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">启动端口</span>
+
+        <input type="text" placeholder="  ">
+
+    </div>
+
+    <div class="yi_hang">
+        <span style="margin-right: 15px;">启动网址</span>
+
+        <input type="text" placeholder="https://gitee.com/g1879/DrissionPage">
+
+    </div>
+
+
+    <br>
+
+    <button class="start_button" type="button">生成启动代码</button>
+    <button class="start_button" type="button">预览配置</button>
+    <button class="start_button" type="button">重新生成启动代码</button>
+    <button class="red_button" type="button">代码录制RPA</button>
+    <button id="copy_code"  class="red_button" type="button">复制下面的代码</button>
+
+    <br>
+    <hr>
+
+    <textarea  id="wenben" rows="20"  placeholder="文本框">空的</textarea>
+
+   </div>
+
+   <script src="js/code_helper.js"></script>
+</body>
+</html>

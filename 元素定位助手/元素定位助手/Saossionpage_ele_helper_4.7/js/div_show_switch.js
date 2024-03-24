@@ -57,12 +57,15 @@ function toggleSwitch_button() {
 
 
 // 获取 on1 按钮元素并添加点击事件监听器
-// console.log(document.URL);
+
+
 
 
 document.getElementById('on1').addEventListener('click', toggleSwitch_button);
 // document.getElementById('off1').addEventListener('click', set_off);
 document.getElementById("kaiguan1").addEventListener("click", toggleSwitch);
+
+
 // 默认展示信息栏
 set_on();
 
