@@ -1,0 +1,77 @@
+
+
+
+
+/* 快捷菜单样式 */
+#caidan {
+    position: absolute;
+    /* background-color: #af9c9c; */
+    padding: 5px;
+    /* border: 1px solid #ccc; */
+    /* cursor: pointer; */
+    color: white;
+
+    box-shadow: #00000080 0 10px 30px;
+
+    z-index: 9999;
+    border-radius: 3px;
+    padding: 5px 4px;
+    background-color: #0b0b0bcc;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(11, 11, 11, .2);
+
+}
+
+/* 导航栏样式 */
+#daohanglan {
+    background-color: lightgrey;
+    color: rgb(7, 121, 64);
+    font-size: 15px;
+    font-family: consolas;
+    /* position: fixed; */
+    position: absolute;
+    /* left: 0; */
+    /* height: 100%; */
+    /* height: 40px; */
+    max-width: 50%;
+    z-index: 5000;
+    text-align: left;
+    border-radius: 5px;
+     /* 添加粗边框 */
+     border-width: 1px; /* 设置边框宽度 */
+     border-style: solid; /* 设置边框样式为实线 */
+     border-color: rgb(129, 71, 71); /* 设置边框颜色为黑色 */
+     padding: 5px; /* 为上、下、左、右都设置10像素的内边距 */
+    
+    
+}
+
+
+
+
+/* 提示样式 */
+#show {
+    color:green;
+    font-size: 12px;
+    /* display: block; */
+}
+
+/* 快捷菜单悬浮 */
+#myTable td:hover {
+    background-color: lightgrey;
+    border-radius: 2px;
+    margin: 4px 0;
+}
+
+
+/* 隐藏类 */
+.hidden {
+    display: none;
+    
+}
+
+/* 位置切换类 */
+
+
+

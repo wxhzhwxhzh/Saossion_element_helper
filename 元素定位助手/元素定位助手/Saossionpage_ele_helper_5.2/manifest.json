@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "骚神库元素自动定位助手",
+    "version": "5.2",
+    "permissions":
+	[
+		"contextMenus", 
+		"tabs", 
+		"notifications", 
+		"webRequest", 
+		 
+		"storage",
+        "activeTab" 
+		 
+	],
+    "icons": {
+		"128": "img/saoshen.png",
+		"48": "img/saoshen.png",
+		"19": "img/saoshen.png"
+	},
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js","right_click.js"],
+            "css": ["abc.css"],
+            "run_at": "document_end"
+        }
+    ],
+    "host_permissions": [
+        "<all_urls>"
+      ],
+      "web_accessible_resources": [
+        {
+            "resources": ["js/inject.js", "*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+      "homepage_url": "https://gitee.com/Saossion/SaossionPage",
+
+      "action": {
+        "default_popup": "popup.html"
+  
+    }
+
+
+
+}

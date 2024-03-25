@@ -1,0 +1,64 @@
+/* popup.css */
+
+/* 整体样式 */
+body {
+    background: #efedf0;
+    width:280px;
+    height:350px;
+    padding: 5px;
+
+
+    
+}
+
+/* Logo 样式 */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#saologo {
+    /* width: 50px; */
+    height: 60px;
+    vertical-align: middle;
+}
+
+/* 切换信息 */
+
+#ceshi {
+    color: #ec0d0d; /* 文本颜色 */
+    font-size: large; /* 字体大小 */
+    font-style: italic; /* 字体样式（斜体） */
+    font-weight: bold; /* 字体粗细（粗体） */
+}
+
+
+/* 设置#on1按钮为绿色并增大尺寸 */
+.green_button {
+    background-color: green; /* 设置背景色为绿色 */
+    color: white; /* 设置文字颜色为白色，以便在绿色背景上更清晰可见 */
+    border: 2px; /* 移除边框 */
+    padding: 10px 10px; /* 增加内边距，使按钮看起来更大 */
+    font-size: 12px; /* 设置字体大小 */
+    border-radius: 5px; /* 设置边框圆角，使按钮边角更圆润 */
+    cursor: pointer; /* 鼠标悬停时显示手型图标，表明这是一个可点击的按钮 */
+    margin: 5px;
+    
+  }
+  
+  /* 设置#off1按钮为红色并增大尺寸 */
+  #off1 {
+    background-color: red; /* 设置背景色为红色 */
+    color: white; /* 设置文字颜色为白色 */
+    border: none; /* 移除边框 */
+    padding: 10px 20px; /* 增加内边距，使按钮看起来更大 */
+    font-size: 12px; /* 设置字体大小 */
+    border-radius: 5px; /* 设置边框圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型图标 */
+  }
+  
+  /* 如果需要，可以添加悬停效果 */
+  #on1:hover, #off1:hover {
+    opacity: 0.8; /* 鼠标悬停时降低按钮的不透明度 */
+  }
