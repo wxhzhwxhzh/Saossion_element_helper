@@ -130,7 +130,7 @@ function printElementAttributesAsString(element) {
 //添加监听
 function addClickEventToInputs() {
     // 获取所有输入框元素
-    var inputElements = document.querySelectorAll('a,li,img,input,button');
+    var inputElements = document.querySelectorAll('a,li,img,input,button,span');
     //var inputElements = document.querySelectorAll('*');
 
     // 暂存元素定位信息
