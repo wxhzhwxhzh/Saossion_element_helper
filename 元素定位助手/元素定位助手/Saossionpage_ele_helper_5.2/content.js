@@ -144,10 +144,13 @@ function addClickEventToInputs() {
             // 如果当前元素已经高亮，则取消高亮
             if ('backgroundColor' in theEle.style && theEle.style.backgroundColor == element_hover_color){   
                 theEle.style.backgroundColor = '';
+                theEle.style.border ='';
                 // delete theEle.style; // 这句没效果
             }
             // 经过元素时给元素加个高亮
             this.style.backgroundColor = element_hover_color;
+             // 修改元素的边框样式
+            this.style.border = "2px solid green";
             // 暂存当前元素
             theEle = this;
 
@@ -331,6 +334,8 @@ document.addEventListener('keydown', function(event) {
       }
 
 });
+
+
 
 
 // 获取元素的XPath
