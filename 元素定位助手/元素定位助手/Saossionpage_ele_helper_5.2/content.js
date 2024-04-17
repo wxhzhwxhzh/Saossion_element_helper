@@ -1,10 +1,4 @@
 
-
-    
-  
-
-
-// add_tag_to_body('script','tool',innerHtmlContent_script);  //添加功能脚本标签
 //  把工具函数注入到网页
 injectCustomJs();  
 
@@ -28,11 +22,9 @@ if (typeof window.localStorage.getItem('is_init') !== 'undefined') {
 }
 
 
-//############################监听部分
+//-----------------------悬浮时的背景颜色
 
 var element_hover_color='rgba(255, 0, 0, 0.5)';
-
-
 
 
 
@@ -69,7 +61,7 @@ function createNavbar() {
 
 }
 
-// 调用函数创建导航栏
+// ------------------------------------调用函数创建导航栏
 createNavbar();
 
 
@@ -262,7 +254,7 @@ function addClickEventToInputs() {
         })
 }
 
-
+// -------------------格式化字符串
 
 function format_the_text(){
       // 获取包含文本的 span 元素
@@ -291,13 +283,13 @@ function format_the_text(){
 
 
 
-// 鼠标 悬浮 监听  调用函数，添加事件
+// ----------------初次加载 调用一次解析函数
 addClickEventToInputs();
 
 
 
 
-// 监听导航栏 进行位置变换
+// ----------------监听导航栏 进行位置变换
 document.getElementById("daohanglan").addEventListener("click", function() {
     
     togglePosition();
