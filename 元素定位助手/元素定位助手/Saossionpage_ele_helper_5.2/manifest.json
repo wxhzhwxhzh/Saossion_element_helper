@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库元素自动定位助手",
-    "version": "5.5",
+    "version": "5.5.2",
     "permissions":
 	[
 		"contextMenus", 
@@ -21,7 +21,7 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content.js","right_click.js"],
+            "js": ["content.js"],
             "css": ["abc.css"],
             "run_at": "document_end"
         }

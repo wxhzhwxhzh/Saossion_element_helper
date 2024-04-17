@@ -62,8 +62,7 @@ function toggleSwitch_button() {
 
 
 document.getElementById('on1').addEventListener('click', toggleSwitch_button);
-// document.getElementById('off1').addEventListener('click', set_off);
-document.getElementById("kaiguan1").addEventListener("click", toggleSwitch);
+
 
 
 // 默认展示信息栏
