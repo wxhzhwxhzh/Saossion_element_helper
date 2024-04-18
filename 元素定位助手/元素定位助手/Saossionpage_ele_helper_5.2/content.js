@@ -130,34 +130,27 @@ function printElementAttributesAsString_simple(element) {
 
     // 初始化一个空字符串用于存储属性
     var attributesString = '';
-
-    // 遍历所有属性并将它们的名称和值拼接到字符串中
-    for (var i = 0; i < attrs.length; i++) {
-        var attrName = attrs[i].name;
-        var attrValue = attrs[i].value;
-        //特殊情况处理
-        if (containsString(attrName)) continue;
-        if (isBlankString(attrValue)) continue;
-        // 如果使用了 element_hover_color 颜色，则跳过该属性
-        if (attrName.includes('style') && attrValue.includes( element_hover_color )) continue;
-        if (attrName == "id") {
-            attributesString = "@@" + attrName + "=" + attrValue;
-            break;
-        }
-        if (attrName == "class") {
-            attributesString = "@@" + attrName + "=" + attrValue;
-            break;
-        }
-        if (attrValue.length > 25 && attrName != "class") {
-            attributesString += "@@" + attrName + "^" + attrValue.slice(0, 20);
-        } else {
-            // 拼接属性名和属性值，属性之间用空格分隔
-            attributesString += "@@" + attrName + "=" + attrValue;
-        }
-
-
+    if (element.hasAttribute('id')){
+        attributesString = "@@id=" + element.id;
+        return attributesString.trim();
 
     }
+    if (element.classList.length > 0) {
+        // 元素具有 class 属性
+        let classValue = element.classList.value; // 获取所有 class 值，以字符串形式返回
+        attributesString = "@@class=" + classValue;
+        return attributesString.trim();
+        
+    }
+
+    // 检查元素是否有innerText，并返回其值
+    if (element.innerText !== null && element.innerText !== undefined) {
+        let innerTextValue = element.innerText;
+        attributesString = "@@text()=" + innerTextValue;
+        return attributesString.trim();       
+    }
+
+  
 
     // 打印最终的属性字符串
     //console.log(attributesString.trim()); // 使用trim()移除尾部的空格
