@@ -117,12 +117,59 @@ function printElementAttributesAsString(element) {
     return attributesString.trim();
 }
 
+//打印某个元素的 精简属性值
+function printElementAttributesAsString_simple(element) {
+    // 检查输入是否是一个元素
+    if (!(element instanceof Element)) {
+        console.error('输入必须是一个HTML元素');
+        return;
+    }
+
+    // 获取元素的所有属性
+    var attrs = element.attributes;
+
+    // 初始化一个空字符串用于存储属性
+    var attributesString = '';
+
+    // 遍历所有属性并将它们的名称和值拼接到字符串中
+    for (var i = 0; i < attrs.length; i++) {
+        var attrName = attrs[i].name;
+        var attrValue = attrs[i].value;
+        //特殊情况处理
+        if (containsString(attrName)) continue;
+        if (isBlankString(attrValue)) continue;
+        // 如果使用了 element_hover_color 颜色，则跳过该属性
+        if (attrName.includes('style') && attrValue.includes( element_hover_color )) continue;
+        if (attrName == "id") {
+            attributesString = "@@" + attrName + "=" + attrValue;
+            break;
+        }
+        if (attrName == "class") {
+            attributesString = "@@" + attrName + "=" + attrValue;
+            break;
+        }
+        if (attrValue.length > 25 && attrName != "class") {
+            attributesString += "@@" + attrName + "^" + attrValue.slice(0, 20);
+        } else {
+            // 拼接属性名和属性值，属性之间用空格分隔
+            attributesString += "@@" + attrName + "=" + attrValue;
+        }
+
+
+
+    }
+
+    // 打印最终的属性字符串
+    //console.log(attributesString.trim()); // 使用trim()移除尾部的空格
+    return attributesString.trim();
+}
+
 
 
 //添加监听
 function addClickEventToInputs() {
     // 获取所有输入框元素
-    var inputElements = document.querySelectorAll('a,li,img,input,button,span');
+    var inputElements = document.querySelectorAll('a,li,img,input,button');
     //var inputElements = document.querySelectorAll('*');
 
     // 暂存元素定位信息
@@ -148,6 +195,7 @@ function addClickEventToInputs() {
 
             // 以下是获取元素定位语法功能
             var attrib_info = printElementAttributesAsString(inputElement);
+            var attrib_info_simple = printElementAttributesAsString_simple(inputElement);
 
             var Name = "tag:" + inputElement.tagName.toLowerCase();
 
@@ -166,8 +214,9 @@ function addClickEventToInputs() {
             window.XPath_info="xpath:"+getElementXPath(inputElement);
             
             window.anotherGlobalVar = Name + attrib_info + text; 
+            window.anotherGlobalVar_simple = Name + attrib_info_simple; 
 
-            info ="<b>按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>按F8复制元素语法--></b>@@" + Name + attrib_info + text ;
+            info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
 
             // info =info +"<hr>"+"<b>按alt+1 复制XPath--></b>@@"+window.XPath_info;
   
@@ -245,7 +294,7 @@ function addClickEventToInputs() {
             // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
 
             // 将坐标信息、定位语法 显示到页面上 
-            let F9_info='按F9 定位动态元素'+"<hr>";
+            let F9_info='🔹 按F9 刷新插件'+"<hr>";
             
             
 
@@ -303,7 +352,7 @@ document.getElementById("daohanglan").addEventListener("click", function() {
 
 
 
-// 监听 F8  F9 按键  alt +1
+// 监听F2 F8  F9 按键  alt +1
 document.addEventListener('keydown', function(event) {
     // 检查是否按下了f8键（keyCode为18）
     if (event.keyCode === 119) {
@@ -312,11 +361,18 @@ document.addEventListener('keydown', function(event) {
         extractInfoAndAlert();
 
     }
+    // 检查是否按下了f2键
+    if (event.keyCode === 113) {
+        // 打印当前网页标题
+        //console.log('Current page title: ' + document.title);
+        extractInfoAndAlert_simple();
+
+    }
     // 检查是否按下了f9键（keyCode为120）  
     if (event.keyCode === 120) {
         // 打印当前网页标题
         addClickEventToInputs();
-        alert('-骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
+        alert('-✔️骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
     }
 
     if (event.altKey && (event.key === "1" || event.keyCode === 49)) {
@@ -356,7 +412,7 @@ function getElementXPath(element) {
 
 // 复制元素的XPath
 function copyElementXPath() {
-    alert("已经复制下面XPath语法到剪贴板 \n"+window.XPath_info);
+    alert("✔️已经复制下面XPath语法到剪贴板 \n"+window.XPath_info);
 
 }
 
@@ -370,7 +426,17 @@ function extractInfoAndAlert(){
     tishi2=window.anotherGlobalVar;
     copyToClipboard(tishi2);
     
-    alert('已经复制该语法到剪贴板  '+tishi2);
+    alert('✔️已经复制该语法到剪贴板  '+tishi2);
+
+}
+function extractInfoAndAlert_simple(){
+    
+
+    // var tishi2=document.getElementById('show').textContent.substring(13)
+    let tishi2=window.anotherGlobalVar_simple;
+    copyToClipboard(tishi2);
+    
+    alert('✔️已经复制该精简语法到剪贴板  '+tishi2);
 
 }
 

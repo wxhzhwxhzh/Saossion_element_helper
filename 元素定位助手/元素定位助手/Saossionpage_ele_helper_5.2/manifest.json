@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库元素自动定位助手",
-    "version": "5.5.2",
+    "version": "5.5.5",
     "permissions":
 	[
 		"contextMenus", 
