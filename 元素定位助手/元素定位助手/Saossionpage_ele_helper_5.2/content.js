@@ -164,7 +164,7 @@ function addClickEventToInputs() {
     // 获取所有输入框元素
     var inputElements = document.querySelectorAll('a,li,img,input,button');
     //var inputElements = document.querySelectorAll('*');
-
+    window.ele_length = inputElements.length;
     // 暂存元素定位信息
     let info = "";
     var theEle = {style: {},elementRect: {left: 0, top: 0}};
@@ -207,7 +207,8 @@ function addClickEventToInputs() {
             window.XPath_info="xpath:"+getElementXPath(inputElement);
             
             window.anotherGlobalVar = Name + attrib_info + text; 
-            window.anotherGlobalVar_simple = Name + attrib_info_simple; 
+            window.anotherGlobalVar_simple = Name + attrib_info_simple;
+            
 
             info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
 
@@ -279,19 +280,24 @@ function addClickEventToInputs() {
 
             }, 0); // 延迟1000毫秒（即1秒）
               // 
+
+            // 获取鼠标位置
+            var mouseX = event.clientX + window.screenX;
+            var mouseY = event.clientY + window.screenY;
             // 为了计算元素内坐标，获取当前元素的位置
-            // elementRect = theEle.getBoundingClientRect();
-            // let eleX = (event.clientX-elementRect.left).toFixed(4);
-            // let eleY = (event.clientY-elementRect.top).toFixed(4);
-            xyInfoDoc = "全局坐标 x:" + event.clientX + ",y:" + event.clientY + "<hr>";
+         
+            
+            xyInfoDoc1 = "浏览器坐标 x:" + event.clientX + ",y:" + event.clientY + "<br>";
+            xyInfoDoc2 = "屏幕坐标 x:" + mouseX + ",y:" + mouseY + "<hr>";
+            
             // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
 
             // 将坐标信息、定位语法 显示到页面上 
-            let F9_info='🔹 按F9 刷新插件'+"<hr>";
+            let F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";
             
             
 
-            document.getElementById('show').textContent = xyInfoDoc + F9_info + info;
+            document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + info;
             format_the_text();
         })
 }
@@ -328,7 +334,25 @@ function format_the_text(){
 // ----------------初次加载 调用一次解析函数
 addClickEventToInputs();
 
+// ----------------获取到元素相对于电脑显示器的坐标
+function getElementAbsolutePosition(ele) {
+    // 获取元素
+    // let element = ele;
 
+    if (!ele) {
+        console.error("未找到指定ID的元素");
+        return null;
+    }
+
+    // 获取元素相对于视口的位置
+    var rect = ele.getBoundingClientRect();
+
+    // 计算元素相对于电脑显示器的坐标
+    var x = rect.left + window.scrollX;
+    var y = rect.top + window.scrollY;
+
+    return { x: x, y: y };
+}
 
 
 // ----------------监听导航栏 进行位置变换
@@ -339,6 +363,8 @@ document.getElementById("daohanglan").addEventListener("click", function() {
     
     
 });
+
+
 
 
 
