@@ -73,5 +73,20 @@
 
 /* 位置切换类 */
 
+/* 按钮样式设置 */
+#cebianlan_Button {
+    /* 按钮的高度为50像素 */
+    /* height: 50px; */
+    background-color: rgba(223, 135, 20, 0.521);
+    border-radius: 10px 0 0 10px;
+    font-size: larger;
+}
+
+/* 按钮悬停时的样式设置 */
+#cebianlan_Button:hover {
+    background-color: rgb(219, 147, 14);
+    /* 当鼠标悬停时，按钮的背景颜色变为红色 */
+}
+
 
 

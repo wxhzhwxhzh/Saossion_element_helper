@@ -508,6 +508,87 @@ function injectCustomJs(jsPath) {
     };
     document.body.appendChild(temp);
   }
+
+
+  // 切换显示信息展示栏
+function info_show_swicth() {
+    chrome.storage.local.get('show_div', function (result) {
+        if (result.show_div == '隐藏') {
+            chrome.storage.local.set({ show_div: '显示' }, function () {
+                console.log('Data 显示.');
+                alert('信息展示栏已经显示');
+                
+            });
+        } else {
+            chrome.storage.local.set({ show_div: '隐藏' }, function () {
+                console.log('Data 隐藏.');
+                alert('信息展示栏已经隐藏');
+            });
+        }
+
+    });
+
+}
+
+  // 创建侧边栏的展开页
+
+  class CustomElement {
+    constructor() {
+      this.element = document.createElement('button');
+      this.element.id='cebianlan_Button';
+      document.body.appendChild(this.element);
+      this.setStyle(); // 设置默认样式
+    }
+  
+    // 设置默认样式
+    setStyle() {
+      this.element.style.border = '1px solid black'; // 默认边框线    
+      this.element.style.position = 'fixed'; // 默认定位方式
+      this.element.style.right = '0'; // 默认 left 位置
+      this.element.style.top = '0'; // 默认 top 位置
+      this.element.style.zIndex=2000; // 始终显示到最前面
+      this.element.style.fontSize='15px';
+      this.element.style.padding='5px';  //内边距
+    }
+  
+    // 修改边框线样式
+    setBorder(borderStyle) {
+      this.element.style.border = borderStyle;
+    }
+  
+    // 修改背景色
+    setBackgroundColor(color) {
+      this.element.style.backgroundColor = color;
+    }
+  
+    // 修改内容
+    setText(text) {
+    //   this.element.innerText = text;
+      this.element.innerHTML = text;
+    }
+  
+    // 修改位置
+    setPosition(right, top) {
+      this.element.style.right = right;
+      this.element.style.top = top;
+    }
+    // 
+    setOnClick() {
+      this.element.onclick = function() {
+        // 在这里编写按钮点击后要执行的代码
+        
+        info_show_swicth();
+      };
+    }
+  }
+  
+  // 使用示例
+  const newElement = new CustomElement();
+//   newElement.setBorder('2px  red');
+//   newElement.setBackgroundColor('lightblue');
+  newElement.setText('信<br>息<br>栏<br>开<br>关');
+  newElement.setPosition('0px', '200px');
+  newElement.setOnClick();  
   
   
   
