@@ -182,7 +182,7 @@ function addClickEventToInputs() {
             // 经过元素时给元素加个高亮
             this.style.backgroundColor = element_hover_color;
              // 修改元素的边框样式
-            this.style.border = "2px solid green";
+            this.style.border = "1px solid green";
             // 暂存当前元素
             theEle = this;
 
@@ -509,28 +509,97 @@ function injectCustomJs(jsPath) {
     document.body.appendChild(temp);
   }
 
+ 
 
-  // 切换显示信息展示栏
-function info_show_swicth() {
-    chrome.storage.local.get('show_div', function (result) {
-        if (result.show_div == '隐藏') {
-            chrome.storage.local.set({ show_div: '显示' }, function () {
-                console.log('Data 显示.');
-                alert('信息展示栏已经显示');
-                
-            });
-        } else {
-            chrome.storage.local.set({ show_div: '隐藏' }, function () {
-                console.log('Data 隐藏.');
-                alert('信息展示栏已经隐藏');
-            });
+
+// ------------------遮罩层类
+class OverlayElement {
+    constructor() {
+        // 创建遮罩层元素
+        this.element = document.createElement('div');
+        this.element.id = 'over_lay';
+        // 将遮罩层添加到 body 中
+        document.body.appendChild(this.element);
+        // 设置默认样式
+        this.setStyle();
+        // 设置监听
+        this.element.addEventListener('click', () => this.setHide());
+    }
+
+    // 设置默认样式
+    setStyle() {
+        // 设置定位方式
+        this.element.style.position = 'fixed';
+        // 设置左侧位置
+        this.element.style.right = '0';
+        // 设置顶部位置
+        this.element.style.top = '0';
+        // 设置背景颜色和透明度
+        this.element.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        // 设置初始隐藏
+        this.element.style.display = 'none';
+        // 设置宽度为全屏
+        this.element.style.width = '100%';
+        // 设置高度为全屏
+        this.element.style.height = '100%';
+        this.element.style.zIndex = 1999;
+        this.element.style.justifyContent= 'center';
+        this.element.style.alignItems ='center';
+    }
+
+    // 显示遮罩层
+    setShow(){
+        this.element.style.display = 'flex'; 
+    }
+    // 隐藏遮罩层
+    setHide(){
+        this.element.style.display = 'none'; 
+    }
+    // 切换
+    switch_show_hide(){
+        if(this.element.style.display == 'none'){
+            this.setShow();
+        }else{
+            this.setHide();
         }
+    }
+    setInnerHtml(txt){
+        this.element.innerHTML=txt;
+    }
 
-    });
-
+    // 设置点击事件
+    setOnClick(func) {
+        // 给遮罩层添加点击事件处理函数
+        this.element.onclick = func;
+    }
 }
 
-  // 创建侧边栏的展开页
+
+
+// 创建对象
+const overlay = new OverlayElement();
+let txt = `
+<div><iframe id="code_helper" src="chrome-extension://gfclfobkiiceiekgmbdfbcnapbcdhhph/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
+`;
+overlay.setInnerHtml(txt);
+// overlay.setShow();
+
+
+
+// 切换显示信息展示栏
+  function info_show_switch() {
+    chrome.storage.local.get('show_div', function (result) {
+        var newState = (result.show_div === '隐藏') ? '显示' : '隐藏';
+
+        chrome.storage.local.set({ show_div: newState }, function () {
+            console.log('信息栏- ' + newState );
+            alert('信息展示栏已经' + newState);
+        });
+    });
+}
+
+
+  //----------------侧边栏按钮类
 
   class CustomElement {
     constructor() {
@@ -573,22 +642,28 @@ function info_show_swicth() {
       this.element.style.top = top;
     }
     // 
-    setOnClick() {
+    setOnClick(func) {
       this.element.onclick = function() {
-        // 在这里编写按钮点击后要执行的代码
+        // 在这里编写按钮点击后要执行的代码        
+        func();
         
-        info_show_swicth();
       };
     }
+    switch_overlay(){
+      overlay.switch_show_hide(); 
+    }
+
   }
   
   // 使用示例
-  const newElement = new CustomElement();
-//   newElement.setBorder('2px  red');
-//   newElement.setBackgroundColor('lightblue');
-  newElement.setText('信<br>息<br>栏<br>开<br>关');
+  var newElement = new CustomElement();
+
+  newElement.setText('元<br>素<br>定<br>位<br>开<br>关');
   newElement.setPosition('0px', '200px');
-  newElement.setOnClick();  
-  
-  
-  
+  newElement.setOnClick(info_show_switch);
+
+  var newElement2 = new CustomElement();
+
+  newElement2.setText('代<br>码<br>助<br>手<br>开<br>关');
+  newElement2.setPosition('0px', '350px');
+  newElement2.setOnClick(newElement2.switch_overlay);

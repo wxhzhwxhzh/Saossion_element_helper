@@ -105,11 +105,10 @@ function updateDateTime() {
   
   var dateTimeString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
   
-  document.getElementById('dateTimeDisplay').innerText = dateTimeString;
+  
 }
 
-// 每秒钟更新一次日期和时间
-setInterval(updateDateTime, 1000);
+
 
 
 

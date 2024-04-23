@@ -65,7 +65,6 @@ document.getElementById('on1').addEventListener('click', toggleSwitch_button);
 
 
 
-// 默认展示信息栏
-set_on();
+
 
 
