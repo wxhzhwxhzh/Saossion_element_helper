@@ -578,8 +578,11 @@ class OverlayElement {
 
 // 创建对象
 const overlay = new OverlayElement();
+// 获取插件id
+const pluginId = chrome.runtime.id;
+console.log(pluginId); // 输出插件的 ID
 let txt = `
-<div><iframe id="code_helper" src="chrome-extension://gfclfobkiiceiekgmbdfbcnapbcdhhph/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
+<div><iframe id="code_helper" src="chrome-extension://${pluginId}/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
 `;
 overlay.setInnerHtml(txt);
 // overlay.setShow();
