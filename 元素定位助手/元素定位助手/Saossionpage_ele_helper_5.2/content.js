@@ -517,57 +517,58 @@ class OverlayElement {
     constructor() {
         // 创建遮罩层元素
         this.element = document.createElement('div');
-        this.element.id = 'over_lay';
+        this.element.id = 'overlay';
         // 将遮罩层添加到 body 中
         document.body.appendChild(this.element);
         // 设置默认样式
         this.setStyle();
-        // 设置监听
-        this.element.addEventListener('click', () => this.setHide());
+        // 设置点击事件监听器
+        this.element.addEventListener('click', () => this.switch_show_hide());
+        // 获取插件id
+        this.pluginId=chrome.runtime.id;
+        // 设置遮罩层内嵌的网页
+        this.iframeInnerText=`
+        <div><iframe id="code_helper" src="chrome-extension://${this.pluginId}/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
+        `;
     }
 
     // 设置默认样式
     setStyle() {
-        // 设置定位方式
-        this.element.style.position = 'fixed';
-        // 设置左侧位置
-        this.element.style.right = '0';
-        // 设置顶部位置
-        this.element.style.top = '0';
-        // 设置背景颜色和透明度
-        this.element.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        // 设置初始隐藏
-        this.element.style.display = 'none';
-        // 设置宽度为全屏
-        this.element.style.width = '100%';
-        // 设置高度为全屏
-        this.element.style.height = '100%';
-        this.element.style.zIndex = 1999;
-        this.element.style.justifyContent= 'center';
-        this.element.style.alignItems ='center';
+        Object.assign(this.element.style, {
+            position: 'fixed',
+            right: '0',
+            top: '0',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'none',
+            width: '100%',
+            height: '100%',
+            zIndex: 1999,
+            justifyContent: 'center',
+            alignItems: 'center'
+        });
     }
 
     // 显示遮罩层
-    setShow(){
+    setShow() {
         this.element.style.display = 'flex'; 
     }
+
     // 隐藏遮罩层
-    setHide(){
+    setHide() {
         this.element.style.display = 'none'; 
     }
-    // 切换
-    switch_show_hide(){
-        if(this.element.style.display == 'none'){
-            this.setShow();
-        }else{
-            this.setHide();
-        }
-    }
-    setInnerHtml(txt){
-        this.element.innerHTML=txt;
+
+    // 切换显示/隐藏状态
+    switch_show_hide() {
+        this.element.style.display = this.element.style.display === 'none' ? 'flex' : 'none';
     }
 
-    // 设置点击事件
+    // 设置内部 HTML 内容
+    setInnerHtml(txt) {
+        this.element.innerHTML = txt;
+    }
+
+    // 设置点击事件处理函数
     setOnClick(func) {
         // 给遮罩层添加点击事件处理函数
         this.element.onclick = func;
@@ -576,15 +577,13 @@ class OverlayElement {
 
 
 
-// 创建对象
+
+// 创建遮罩层对象
 const overlay = new OverlayElement();
-// 获取插件id
-const pluginId = chrome.runtime.id;
-console.log(pluginId); // 输出插件的 ID
-let txt = `
-<div><iframe id="code_helper" src="chrome-extension://${pluginId}/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
-`;
-overlay.setInnerHtml(txt);
+// 输出插件的 ID
+console.log(overlay.pluginId);
+// 设置遮罩层内嵌的网页
+overlay.setInnerHtml(overlay.iframeInnerText);
 // overlay.setShow();
 
 
@@ -603,30 +602,34 @@ overlay.setInnerHtml(txt);
 
 
   //----------------侧边栏按钮类
-
   class CustomElement {
     constructor() {
+      // 创建按钮元素并添加到页面中
       this.element = document.createElement('button');
-      this.element.id='cebianlan_Button';
+      this.element.id = 'cebianlan_Button';
       document.body.appendChild(this.element);
-      this.setStyle(); // 设置默认样式
+  
+      // 设置默认样式
+      this.setDefaultStyle();
     }
   
     // 设置默认样式
-    setStyle() {
-      this.element.style.border = '1px solid black'; // 默认边框线    
-      this.element.style.position = 'fixed'; // 默认定位方式
-      this.element.style.right = '0'; // 默认 left 位置
-      this.element.style.top = '0'; // 默认 top 位置
-      this.element.style.zIndex=2000; // 始终显示到最前面
-      this.element.style.fontSize='15px';
-      this.element.style.padding='5px';  //内边距
-    }
+    setDefaultStyle() {
+      // 默认样式对象
+      const defaultStyle = {
+        border: '1px solid black', // 默认边框线
+        position: 'fixed', // 默认定位方式
+        right: '0', // 默认 right 位置
+        top: '0', // 默认 top 位置
+        zIndex: 2000, // 始终显示到最前面
+        fontSize: '15px',
+        padding: '5px' // 内边距
+      };
   
-    // 修改边框线样式
-    setBorder(borderStyle) {
-      this.element.style.border = borderStyle;
+      // 将默认样式应用到按钮元素上
+      Object.assign(this.element.style, defaultStyle);
     }
+
   
     // 修改背景色
     setBackgroundColor(color) {
@@ -634,9 +637,8 @@ overlay.setInnerHtml(txt);
     }
   
     // 修改内容
-    setText(text) {
-    //   this.element.innerText = text;
-      this.element.innerHTML = text;
+    setInnerTextWithBr(text) {
+      this.element.innerHTML = text.split('').join('<br>');
     }
   
     // 修改位置
@@ -644,29 +646,28 @@ overlay.setInnerHtml(txt);
       this.element.style.right = right;
       this.element.style.top = top;
     }
-    // 
+  
+    // 设置点击事件处理函数  onclick 后面跟函数名
     setOnClick(func) {
-      this.element.onclick = function() {
-        // 在这里编写按钮点击后要执行的代码        
-        func();
-        
-      };
+      this.element.onclick =func;
     }
-    switch_overlay(){
-      overlay.switch_show_hide(); 
+  
+    // 切换 overlay
+    switchOverlay() {
+      overlay.switch_show_hide();
     }
-
   }
+  
   
   // 使用示例
   var newElement = new CustomElement();
 
-  newElement.setText('元<br>素<br>定<br>位<br>开<br>关');
+  newElement.setInnerTextWithBr('元素助手开关');
   newElement.setPosition('0px', '200px');
   newElement.setOnClick(info_show_switch);
 
   var newElement2 = new CustomElement();
 
-  newElement2.setText('代<br>码<br>助<br>手<br>开<br>关');
+  newElement2.setInnerTextWithBr('代码助手开关');
   newElement2.setPosition('0px', '350px');
-  newElement2.setOnClick(newElement2.switch_overlay);
+  newElement2.setOnClick(newElement2.switchOverlay);
