@@ -1,4 +1,5 @@
 
+// 初次调用解析一下元素
 
   //  右键菜单
 
@@ -31,6 +32,14 @@
 
   
   chrome.contextMenus.onClicked.addListener(function(info, tab) {
+
+    chrome.scripting.executeScript({       
+
+      target: { tabId: tab.id },
+      function: refresh_init
+    });
+    
+    
     if (info.menuItemId === "copyDP") {
       
       chrome.scripting.executeScript({       
@@ -60,33 +69,28 @@
   });
 
 
-  
+
 function showElementDP() {
-  var element = window.getSelection().anchorNode.parentElement;
-  if (element) {
-    extractInfoAndAlert_simple();
-  } else {
-    alert("无法获取元素的语法");
-  }
+
+  extractInfoAndAlert_simple();
+
 }
 
 function showElementXpath() {
-  var element = window.getSelection().anchorNode.parentElement;
-  if (element) {
-    // copyElementXPath();
-    copyElementXPath();
 
-  } else {
-    alert("无法获取元素的语法");
-  }
+  copyElementXPath();
 }
 
 function refresh() {
-  var element = window.getSelection().anchorNode.parentElement;
-  if (element) {
-    addClickEventToInputs();
-    alert('-✔️骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
+  addClickEventToInputs();
+  alert('-✔️骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
 
-  }
 }
+
+function refresh_init() {
+  addClickEventToInputs();
+
+}
+
+
 

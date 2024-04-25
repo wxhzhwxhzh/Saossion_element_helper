@@ -391,7 +391,7 @@ document.addEventListener('keydown', function(event) {
     if (event.keyCode === 120) {
         // 打印当前网页标题
         addClickEventToInputs();
-        alert('-✔️骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
+        alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
     }
 
     if (event.altKey && (event.key === "1" || event.keyCode === 49)) {
