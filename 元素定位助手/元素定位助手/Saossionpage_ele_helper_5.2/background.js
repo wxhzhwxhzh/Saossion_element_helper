@@ -1,7 +1,15 @@
 
-// 初次调用解析一下元素
+// 检查是否已存在具有相同 ID 的菜单项,如果有就清空
+chrome.contextMenus.removeAll(
+  
+);
 
-  //  右键菜单
+// 创建新的右键菜单
+create_right_menu();
+
+
+
+function create_right_menu(){
 
   chrome.contextMenus.create({
     id: "F9",
@@ -29,6 +37,8 @@
     title: "复制元素CSS语法",
     contexts: ["all"]
   });
+
+}  
 
 
 
@@ -103,12 +113,13 @@ function showElementXpath() {
 
 function refresh() {
   addClickEventToInputs();
-  alert('-✔️骚神库元素定位插件- \n 你按下了F9键\n 插件已经深度解析，重新定位动态元素!!');
+  alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
 
 }
 
 function refresh_init() {
   addClickEventToInputs();
+  listen_for_mousemove();
 
 }
 

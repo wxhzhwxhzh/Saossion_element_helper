@@ -61,8 +61,21 @@ function createNavbar() {
 
 }
 
-// ------------------------------------调用函数创建导航栏
+// ------------------------------------调用函数创建导航栏  默认隐藏
 createNavbar();
+
+chrome.storage.local.get('show_div', function (result) {
+    var newState = result.show_div ;
+    
+    if (newState == '隐藏') {
+        document.getElementById('daohanglan').style.display = "none";
+    } else {
+        document.getElementById('daohanglan').style.display = "block";
+    }
+});
+
+
+
 
 
 
@@ -210,7 +223,7 @@ function addClickEventToInputs() {
             window.anotherGlobalVar_simple = Name + attrib_info_simple;
             
 
-            info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
+            window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
 
             // info =info +"<hr>"+"<b>按alt+1 复制XPath--></b>@@"+window.XPath_info;
   
@@ -219,87 +232,7 @@ function addClickEventToInputs() {
 
     });
       
-        // 监听鼠标移动事件
-        document.addEventListener('mousemove', function(event) {
-
-            // 设置 daohanglan 是否隐藏
-            chrome.storage.local.get('show_div', function (result) {                
-                if (chrome.runtime.lastError) {
-                    // 处理错误的情况
-                    console.error("发生错误：" + chrome.runtime.lastError);
-                    
-                } else {
-                    
-                        
-                        if (result.show_div == '隐藏') {
-                            document.getElementById('daohanglan').style.display = "none";
-                        } else {
-                            document.getElementById('daohanglan').style.display = "block";
-                        }
-                    
-                }
-            });
-            
-            // 边缘碰撞检测
-
-            let daohanglan = document.getElementById("daohanglan");          
-            
-            
-            setTimeout(function () {
-          
-                // 定义常量以避免重复的数字字面量
-                const OFFSET = 300;
-                const pianyi = 20;
-                // 获取元素的宽度（包括边框、内边距和滚动条）
-                let width = daohanglan.offsetWidth;
-
-                // 获取元素的高度（包括边框、内边距和滚动条）
-                let height = daohanglan.offsetHeight;
-
-                
-                if (event.clientX < window.outerWidth -width-40) {
-                    // 根据 event.clientX 设置 daohanglan 元素的 left 属性                    
-                    daohanglan.style.left = (event.clientX + pianyi) + "px";
-                } else {                    
-                    daohanglan.style.left =(event.clientX - pianyi-width) + "px";
-                    
-                }
-                
-                // daohanglan.style.top = (event.pageY + pianyi) + "px";
-                if (event.pageY < window.outerHeight - height - 40) {                  
-                    
-                    daohanglan.style.top = (event.pageY + pianyi) + "px";
-                } else {                  
-                    
-                    daohanglan.style.top = (event.pageY-pianyi -height) + "px";
-                }               
-
-
-                
-
-
-            }, 0); // 延迟1000毫秒（即1秒）
-              // 
-
-            // 获取鼠标位置
-            var mouseX = event.clientX + window.screenX;
-            var mouseY = event.clientY + window.screenY;
-            // 为了计算元素内坐标，获取当前元素的位置
-         
-            
-            xyInfoDoc1 = "浏览器坐标 x:" + event.clientX + ",y:" + event.clientY + "<br>";
-            xyInfoDoc2 = "屏幕坐标 x:" + mouseX + ",y:" + mouseY + "<hr>";
-            
-            // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
-
-            // 将坐标信息、定位语法 显示到页面上 
-            let F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";
-            
-            
-
-            document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + info;
-            format_the_text();
-        })
+        
 }
 
 // -------------------格式化字符串
@@ -363,6 +296,99 @@ document.getElementById("daohanglan").addEventListener("click", function() {
     
     
 });
+
+//------------监听鼠标移动
+function listen_for_mousemove(){
+    document.addEventListener('mousemove', function(event) {
+
+   
+        // 边缘碰撞检测
+    
+        let daohanglan = document.getElementById("daohanglan");          
+        
+        
+        setTimeout(function () {
+      
+            // 定义常量以避免重复的数字字面量
+            const OFFSET = 300;
+            const pianyi = 20;
+            // 获取元素的宽度（包括边框、内边距和滚动条）
+            let width = daohanglan.offsetWidth;
+    
+            // 获取元素的高度（包括边框、内边距和滚动条）
+            let height = daohanglan.offsetHeight;
+    
+            
+            if (event.clientX < window.outerWidth -width-40) {
+                // 根据 event.clientX 设置 daohanglan 元素的 left 属性                    
+                daohanglan.style.left = (event.clientX + pianyi) + "px";
+            } else {                    
+                daohanglan.style.left =(event.clientX - pianyi-width) + "px";
+                
+            }
+            
+            // daohanglan.style.top = (event.pageY + pianyi) + "px";
+            if (event.pageY < window.outerHeight - height - 40) {                  
+                
+                daohanglan.style.top = (event.pageY + pianyi) + "px";
+            } else {                  
+                
+                daohanglan.style.top = (event.pageY-pianyi -height) + "px";
+            }               
+    
+    
+            
+    
+    
+        }, 0); // 延迟1000毫秒（即1秒）
+    
+        // 获取鼠标位置
+        var mouseX = event.clientX + window.screenX;
+        var mouseY = event.clientY + window.screenY;
+        // 为了计算元素内坐标，获取当前元素的位置
+     
+        
+        xyInfoDoc1 = "浏览器坐标 x:" + event.clientX + ",y:" + event.clientY + "<br>";
+        xyInfoDoc2 = "屏幕坐标 x:" + mouseX + ",y:" + mouseY + "<hr>";
+        
+        // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
+    
+        // 将坐标信息、定位语法 显示到页面上 
+        var F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";   
+        
+    
+        document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
+        format_the_text();
+    });
+}
+
+listen_for_mousemove();
+
+
+
+
+
+
+// //-----------是否显示浮窗
+// function show_fuchuang(){
+//              // 设置 daohanglan 是否隐藏
+//              chrome.storage.local.get('show_div', function (result) {                
+//                 if (chrome.runtime.lastError) {
+//                     // 处理错误的情况
+//                     console.error("发生错误：" + chrome.runtime.lastError);
+                    
+//                 } else {
+                    
+                        
+//                         if (result.show_div == '隐藏') {
+//                             document.getElementById('daohanglan').style.display = "none";
+//                         } else {
+//                             document.getElementById('daohanglan').style.display = "block";
+//                         }
+                    
+//                 }
+//             });        
+// }
 
 
 
@@ -595,13 +621,21 @@ overlay.setInnerHtml(overlay.iframeInnerText);
   function info_show_switch() {
     chrome.storage.local.get('show_div', function (result) {
         var newState = (result.show_div === '隐藏') ? '显示' : '隐藏';
+        
+        if (newState == '隐藏') {
+            document.getElementById('daohanglan').style.display = "none";
+        } else {
+            document.getElementById('daohanglan').style.display = "block";
+        }
 
         chrome.storage.local.set({ show_div: newState }, function () {
             console.log('信息栏- ' + newState );
             alert('信息展示栏已经' + newState);
         });
-    });
-}
+
+
+        });
+    }
 
 
   //----------------侧边栏按钮类
