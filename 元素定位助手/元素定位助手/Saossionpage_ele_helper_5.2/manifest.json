@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手 ",
-    "version": "6.1",
+    "version": "6.3",
     "permissions":
 	[
 		"contextMenus", 
@@ -10,7 +10,9 @@
 		"webRequest", 
 		 
 		"storage",
-        "activeTab" 
+        "activeTab",
+        "scripting"
+         
 		 
 	],
     "icons": {
@@ -40,7 +42,10 @@
       "action": {
         "default_popup": "popup.html"
   
-    }
+    },
+    "background": {
+        "service_worker": "background.js"
+      }
 
 
 

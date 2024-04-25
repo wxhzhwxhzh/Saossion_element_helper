@@ -397,7 +397,7 @@ document.addEventListener('keydown', function(event) {
     if (event.altKey && (event.key === "1" || event.keyCode === 49)) {
         // 在这里执行按下 alt + 1 后的操作
         copyElementXPath();
-        copyToClipboard(window.XPath_info);
+        
       }
 
 });
@@ -431,6 +431,7 @@ function getElementXPath(element) {
 
 // 复制元素的XPath
 function copyElementXPath() {
+    copyToClipboard(window.XPath_info);
     alert("✔️已经复制下面XPath语法到剪贴板 \n"+window.XPath_info);
 
 }
@@ -526,10 +527,12 @@ class OverlayElement {
         this.element.addEventListener('click', () => this.switch_show_hide());
         // 获取插件id
         this.pluginId=chrome.runtime.id;
+        this.iframeSrc=chrome.runtime.getURL('code_helper.html');
         // 设置遮罩层内嵌的网页
         this.iframeInnerText=`
-        <div><iframe id="code_helper" src="chrome-extension://${this.pluginId}/code_helper.html" width="900" height="700" frameborder="0"></iframe></div>
+        <div><iframe id="code_helper" src="${this.iframeSrc}" width="900" height="700" frameborder="0"></iframe></div>
         `;
+        // alert(this.iframeSrc);
     }
 
     // 设置默认样式
@@ -662,12 +665,13 @@ overlay.setInnerHtml(overlay.iframeInnerText);
   // 使用示例
   var newElement = new CustomElement();
 
-  newElement.setInnerTextWithBr('元素助手开关');
+  newElement.setInnerTextWithBr('元素浮窗开关');
   newElement.setPosition('0px', '200px');
   newElement.setOnClick(info_show_switch);
 
   var newElement2 = new CustomElement();
 
   newElement2.setInnerTextWithBr('代码助手开关');
-  newElement2.setPosition('0px', '350px');
+  newElement2.setPosition('0px', '360px');
   newElement2.setOnClick(newElement2.switchOverlay);
+
