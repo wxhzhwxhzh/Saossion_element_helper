@@ -10,8 +10,13 @@
   });
 
   chrome.contextMenus.create({
-    id: "copyDP",
+    id: "copyDP_simple",
     title: "复制元素Drissionpage精简语法",
+    contexts: ["all"]
+  });
+  chrome.contextMenus.create({
+    id: "copyDP",
+    title: "复制元素Drissionpage完整语法",
     contexts: ["all"]
   });
   chrome.contextMenus.create({
@@ -40,6 +45,15 @@
     });
     
     
+    if (info.menuItemId === "copyDP_simple") {
+      
+      chrome.scripting.executeScript({       
+
+        target: { tabId: tab.id },
+        function: showElementDP_simple
+      });
+    }
+
     if (info.menuItemId === "copyDP") {
       
       chrome.scripting.executeScript({       
@@ -48,6 +62,7 @@
         function: showElementDP
       });
     }
+
     if (info.menuItemId === "copyXpath") {
       
       chrome.scripting.executeScript({       
@@ -70,9 +85,14 @@
 
 
 
-function showElementDP() {
+function showElementDP_simple() {
 
   extractInfoAndAlert_simple();
+
+}
+function showElementDP() {
+
+  extractInfoAndAlert();
 
 }
 
