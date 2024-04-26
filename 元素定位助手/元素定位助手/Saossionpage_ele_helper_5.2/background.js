@@ -1,15 +1,13 @@
 
 // 检查是否已存在具有相同 ID 的菜单项,如果有就清空
 chrome.contextMenus.removeAll(
-  
+
 );
 
 // 创建新的右键菜单
 create_right_menu();
 
-
-
-function create_right_menu(){
+function create_right_menu() {
 
   chrome.contextMenus.create({
     id: "F9",
@@ -33,81 +31,47 @@ function create_right_menu(){
     contexts: ["all"]
   });
   chrome.contextMenus.create({
-    id: "copyCSS",
-    title: "复制元素CSS语法",
+    id: "vip",
+    title: "解析当前网页视频",
     contexts: ["all"]
   });
 
-}  
+}
 
+// 根据菜单项ID调用不同的函数
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+  const functions = {
+    "copyDP_simple": showElementDP_simple,
+    "copyDP": showElementDP,
+    "copyXpath": showElementXpath,
+    "F9": refresh,
+    "vip":parserVideo
+  };
 
-
-
-
-
-  
-  chrome.contextMenus.onClicked.addListener(function(info, tab) {
-
-    chrome.scripting.executeScript({       
-
+  const func = functions[info.menuItemId];
+  if (func) {
+    chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: refresh_init
+      function: func
     });
-    
-    
-    if (info.menuItemId === "copyDP_simple") {
-      
-      chrome.scripting.executeScript({       
-
-        target: { tabId: tab.id },
-        function: showElementDP_simple
-      });
-    }
-
-    if (info.menuItemId === "copyDP") {
-      
-      chrome.scripting.executeScript({       
-
-        target: { tabId: tab.id },
-        function: showElementDP
-      });
-    }
-
-    if (info.menuItemId === "copyXpath") {
-      
-      chrome.scripting.executeScript({       
-
-        target: { tabId: tab.id },
-        function: showElementXpath
-      });
-    }
-    if (info.menuItemId === "F9") {
-      
-      chrome.scripting.executeScript({       
-
-        target: { tabId: tab.id },
-        function: refresh
-      });
-    }
+  } else {
+    console.error("Unsupported menu item ID:", info.menuItemId);
+  }
+});
 
 
-  });
-
-
+// 工具库 函数
 
 function showElementDP_simple() {
-
   extractInfoAndAlert_simple();
 
 }
+
 function showElementDP() {
-
   extractInfoAndAlert();
-
 }
 
 function showElementXpath() {
-
   copyElementXPath();
 }
 
@@ -122,6 +86,19 @@ function refresh_init() {
   listen_for_mousemove();
 
 }
+
+//------------
+function parserVideo() {
+  // 获取当前网页的网址
+  var currentURL = window.location.href;
+  // 拼接新的网址
+  var newURL = "https://jx.jsonplayer.com/player/?url=" + window.location.href;
+
+  // 在新标签页中打开新网址
+  window.open(newURL, "_blank");
+}
+
+
 
 
 
