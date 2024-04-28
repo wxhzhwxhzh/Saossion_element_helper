@@ -178,6 +178,10 @@ function addClickEventToInputs() {
     var inputElements = document.querySelectorAll('a,li,img,input,button');
     //var inputElements = document.querySelectorAll('*');
     window.ele_length = inputElements.length;
+    
+    // 把定位为元素数 发送给右键菜单
+    chrome.runtime.sendMessage({ele_count: window.ele_length});
+    
     // 暂存元素定位信息
     let info = "";
     var theEle = {style: {},elementRect: {left: 0, top: 0}};
@@ -225,7 +229,7 @@ function addClickEventToInputs() {
 
             window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
 
-            // info =info +"<hr>"+"<b>按alt+1 复制XPath--></b>@@"+window.XPath_info;
+            
   
 
         });
@@ -354,12 +358,14 @@ function listen_for_mousemove(){
         // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
     
         // 将坐标信息、定位语法 显示到页面上 
-        var F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";   
+        var F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";
+           
         
     
         document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
         format_the_text();
     });
+
 }
 
 listen_for_mousemove();

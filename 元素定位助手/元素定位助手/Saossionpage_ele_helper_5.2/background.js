@@ -43,6 +43,13 @@ function create_right_menu() {
     contexts: ["all"]
   });
   chrome.contextMenus.create({
+    id: "switch_ele_window",
+    title: "元素浮窗开关",
+    contexts: ["all"],
+    parentId: "sub_menu"
+    
+  });
+  chrome.contextMenus.create({
     id: "vip",
     title: "解析当前网页视频",
     contexts: ["all"],
@@ -73,7 +80,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "vip":parserVideo,
     "copy_input":copy_ele_and_input,
     "copy_click":copy_ele_and_click,
-    "cookie":getCookie
+    "cookie":getCookie,
+    "switch_ele_window":info_show_switch_
   };
 
   const func = functions[info.menuItemId];
@@ -87,6 +95,18 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
   }
 });
 
+// 监听函数
+
+
+// 监听来自 tool.js Script 的消息
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+  // 如果消息包含标题信息
+  if (message.ele_count) {
+    // 更新右键菜单的二级菜单名
+    chrome.contextMenus.update("F9", {title: `刷新定位(已定位${message.ele_count}个元素)`});
+  }
+});
+
 
 // 工具库 函数
 function getCookie() {
@@ -97,8 +117,7 @@ function getCookie() {
 
 
 function showElementDP_simple() {
-  extractInfoAndAlert_simple();
-  
+  extractInfoAndAlert_simple();  
 
 }
 
@@ -137,6 +156,10 @@ function parserVideo() {
 
   // 在新标签页中打开新网址
   window.open(newURL, "_blank");
+}
+
+function info_show_switch_(){
+  info_show_switch();
 }
 
 

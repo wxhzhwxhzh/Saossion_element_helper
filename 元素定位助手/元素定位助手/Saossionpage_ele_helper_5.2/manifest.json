@@ -23,7 +23,7 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content.js"],
+            "js": ["content.js","tool.js"],
             "css": ["abc.css"],
             "run_at": "document_end"
         }
