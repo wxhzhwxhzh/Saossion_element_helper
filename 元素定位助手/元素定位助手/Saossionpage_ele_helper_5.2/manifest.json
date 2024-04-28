@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手 ",
-    "version": "6.3.2",
+    "version": "6.4",
     "permissions":
 	[
 		"contextMenus", 
@@ -16,9 +16,9 @@
 		 
 	],
     "icons": {
-		"128": "img/saoshen.png",
-		"48": "img/saoshen.png",
-		"19": "img/saoshen.png"
+		"128": "img/saoshen2.png",
+		"48": "img/saoshen2.png",
+		"19": "img/saoshen2.png"
 	},
     "content_scripts": [
         {
@@ -46,7 +46,6 @@
     "background": {
         "service_worker": "background.js"
       }
-
 
 
 }

@@ -472,17 +472,38 @@ function extractInfoAndAlert(){
     tishi2=window.anotherGlobalVar;
     copyToClipboard(tishi2);
     
-    alert('✔️已经复制该语法到剪贴板  '+tishi2);
+    alert('✔️已经复制该语法到剪贴板  \n'+tishi2);
 
 }
-function extractInfoAndAlert_simple(){
-    
+function extractInfoAndAlert_simple(){ 
 
-    // var tishi2=document.getElementById('show').textContent.substring(13)
     let tishi2=window.anotherGlobalVar_simple;
     copyToClipboard(tishi2);
     
-    alert('✔️已经复制该精简语法到剪贴板  '+tishi2);
+    alert('✔️已经复制该精简语法到剪贴板  \n'+tishi2);
+
+}
+
+function extractInfoAndAlert_simple_input(){ 
+    let result = prompt("输入框里要输入的内容:", "1234");
+    if (result !== null) {
+        // 用户点击了确认按钮，result 是用户输入的值
+        var tishi2=`page.ele('${window.anotherGlobalVar_simple}').input('${result}')`  ;
+        copyToClipboard(tishi2);
+    } else {
+        // 用户点击了取消按钮或关闭了对话框
+    }
+    
+    alert('✔️已经复制该精简语法到剪贴板  \n'+tishi2);
+
+}
+
+function extractInfoAndAlert_simple_click(){
+
+    let tishi2=`page.ele('${window.anotherGlobalVar_simple}').click()`  ;
+    copyToClipboard(tishi2);
+
+    alert('✔️已经复制该精简语法到剪贴板  \n'+tishi2);
 
 }
 

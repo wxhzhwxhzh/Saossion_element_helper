@@ -17,23 +17,48 @@ function create_right_menu() {
 
   chrome.contextMenus.create({
     id: "copyDP_simple",
-    title: "复制元素Drissionpage精简语法",
+    title: "复制Drissionpage精简语法",
     contexts: ["all"]
   });
   chrome.contextMenus.create({
     id: "copyDP",
-    title: "复制元素Drissionpage完整语法",
+    title: "复制Drissionpage完整语法",
     contexts: ["all"]
   });
   chrome.contextMenus.create({
     id: "copyXpath",
-    title: "复制元素Xpath语法",
+    title: "复制Xpath语法",
+    contexts: ["all"]
+  });
+  chrome.contextMenus.create({
+    id: "cookie",
+    title: "复制网页cookie",
+    contexts: ["all"],
+    
+  });
+  // 创建第二级子菜单项
+  chrome.contextMenus.create({
+    id: "sub_menu",
+    title: "额外功能",
     contexts: ["all"]
   });
   chrome.contextMenus.create({
     id: "vip",
     title: "解析当前网页视频",
-    contexts: ["all"]
+    contexts: ["all"],
+    parentId: "sub_menu"
+  });
+  chrome.contextMenus.create({
+    id: "copy_input",
+    title: "复制input()语法",
+    contexts: ["editable"],
+    parentId: "sub_menu"
+  });
+  chrome.contextMenus.create({
+    id: "copy_click",
+    title: "复制click()语法",
+    contexts: ["all"],
+    parentId: "sub_menu"
   });
 
 }
@@ -45,7 +70,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "copyDP": showElementDP,
     "copyXpath": showElementXpath,
     "F9": refresh,
-    "vip":parserVideo
+    "vip":parserVideo,
+    "copy_input":copy_ele_and_input,
+    "copy_click":copy_ele_and_click,
+    "cookie":getCookie
   };
 
   const func = functions[info.menuItemId];
@@ -61,9 +89,16 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 
 // 工具库 函数
+function getCookie() {
+  copyToClipboard(document.cookie);
+  alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
+  
+}
+
 
 function showElementDP_simple() {
   extractInfoAndAlert_simple();
+  
 
 }
 
@@ -73,6 +108,12 @@ function showElementDP() {
 
 function showElementXpath() {
   copyElementXPath();
+}
+function copy_ele_and_input() {
+  extractInfoAndAlert_simple_input();
+}
+function copy_ele_and_click() {
+  extractInfoAndAlert_simple_click();
 }
 
 function refresh() {
