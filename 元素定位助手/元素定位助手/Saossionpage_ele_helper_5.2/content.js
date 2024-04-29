@@ -24,8 +24,36 @@ if (typeof window.localStorage.getItem('is_init') !== 'undefined') {
 
 //-----------------------悬浮时的背景颜色
 
-var element_hover_color='rgba(255, 0, 0, 0.5)';
+var element_hover_color='rgba(250, 0, 0, 0.3)';
+window.flag_value=['a','li','img','input','button'] ;
+// ----------------------flag 对象
+class Flag{
+    constructor() {
+      this.value=[];
+      this.reset();
+    
+    }
+    reset() {
+        this.value=['a','li','img','input','button'] ;        
+    }
+    add(ele){
+        this.value.push(ele)
+    }
+    clear(){
+        this.value=[];
+        return this;
+    }
+    toString(){
+        return this.value.join(",")        
+    }
+    
+    
+   
 
+
+}
+window.flag=new Flag();
+// ------------设置类
 
 
 // -------------------------------------------创建导航信息栏
@@ -175,7 +203,7 @@ function printElementAttributesAsString_simple(element) {
 //添加监听
 function addClickEventToInputs() {
     // 获取所有输入框元素
-    var inputElements = document.querySelectorAll('a,li,img,input,button');
+    var inputElements = document.querySelectorAll(window.flag.toString());
     //var inputElements = document.querySelectorAll('*');
     window.ele_length = inputElements.length;
     
@@ -519,15 +547,16 @@ function extractInfoAndAlert_simple_click(){
 
 //  复制到剪贴板操作
 function copyToClipboard(text) {
-    var tempInput = document.createElement("input"); // 创建临时输入框元素
+    // var tempInput = document.createElement("input"); // 创建临时输入框元素
 
-    tempInput.value = text; // 将输入的文本赋给临时输入框
-    document.body.appendChild(tempInput); // 将临时输入框添加到页面中
+    // tempInput.value = text; // 将输入的文本赋给临时输入框
+    // document.body.appendChild(tempInput); // 将临时输入框添加到页面中
 
-    tempInput.select(); // 选中临时输入框中的文本
-    document.execCommand("copy"); // 执行复制操作
+    // tempInput.select(); // 选中临时输入框中的文本
+    // document.execCommand("copy"); // 执行复制操作
 
-    document.body.removeChild(tempInput); // 删除临时输入框
+    // document.body.removeChild(tempInput); // 删除临时输入框
+    navigator.clipboard.writeText(text);
 }
 
 
@@ -657,7 +686,8 @@ overlay.setInnerHtml(overlay.iframeInnerText);
 
         chrome.storage.local.set({ show_div: newState }, function () {
             console.log('信息栏- ' + newState );
-            alert('信息展示栏已经' + newState);
+            // alert('信息展示栏已经' + newState);
+            AutoDismissAlert('元素信息浮窗 已经' + newState,1000);
         });
 
 
