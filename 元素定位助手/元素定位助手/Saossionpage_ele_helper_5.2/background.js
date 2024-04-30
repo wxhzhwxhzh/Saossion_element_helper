@@ -36,6 +36,12 @@ function create_right_menu() {
     contexts: ["all"],
     
   });
+  // chrome.contextMenus.create({
+  //   id: "header",
+  //   title: "复制 网页请求头",
+  //   contexts: ["all"],
+    
+  // });
 
   chrome.contextMenus.create({
     id: "copy_code",
@@ -109,6 +115,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "copy_input":copy_ele_and_input,
     "copy_click":copy_ele_and_click,
     "cookie":getCookie,
+    // "header":getHeader,
     "switch_ele_window":info_show_switch_,
     "set_ele_window":set_ele_loc,
     "copy_code":copy_init_code,
@@ -148,8 +155,10 @@ function getCookie() {
   alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
   
 }
+
 function getUA() {
   copyToClipboard(navigator.userAgent);
+  
   alert('网页的UA已经复制到剪贴板 \n'+navigator.userAgent);  
 }
 
