@@ -54,14 +54,16 @@ function toggleSwitch_button() {
         
     }
 }
-
+function scan_finger_print(){
+    window.open("https://ip77.net/", "_blank");
+}
 
 // 获取 on1 按钮元素并添加点击事件监听器
 
 
 
 
-document.getElementById('on1').addEventListener('click', toggleSwitch_button);
+document.getElementById('on1').addEventListener('click', scan_finger_print);
 
 
 

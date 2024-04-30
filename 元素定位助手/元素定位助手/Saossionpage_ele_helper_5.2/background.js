@@ -36,18 +36,36 @@ function create_right_menu() {
     contexts: ["all"],
     
   });
-  // chrome.contextMenus.create({
-  //   id: "header",
-  //   title: "复制 网页请求头",
-  //   contexts: ["all"],
-    
-  // });
-
+  
   chrome.contextMenus.create({
     id: "copy_code",
     title: "复制 启动代码",
     contexts: ["all"],   
     
+  });
+  chrome.contextMenus.create({
+    id: "fingerPrint",
+    title: "浏览器指纹检测",
+    contexts: ["all"],
+    
+  });
+  chrome.contextMenus.create({
+    id: "copy_input",
+    title: "复制input()语法",
+    contexts: ["editable"],
+    // parentId: "more"
+  });
+  chrome.contextMenus.create({
+    id: "copy_click",
+    title: "复制click()语法",
+    contexts: ["all"],
+    // parentId: "more"
+  });
+  chrome.contextMenus.create({
+    id: "copy_ua",
+    title: "复制网页UA",
+    contexts: ["all"],
+    // parentId: "more"
   });
 
   // 创建第二级子菜单项1
@@ -82,24 +100,7 @@ function create_right_menu() {
     contexts: ["all"],
     parentId: "more"
   });
-  chrome.contextMenus.create({
-    id: "copy_input",
-    title: "复制input()语法",
-    contexts: ["editable"],
-    parentId: "more"
-  });
-  chrome.contextMenus.create({
-    id: "copy_click",
-    title: "复制click()语法",
-    contexts: ["all"],
-    parentId: "more"
-  });
-  chrome.contextMenus.create({
-    id: "copy_ua",
-    title: "复制网页UA",
-    contexts: ["all"],
-    parentId: "more"
-  });
+ 
   
 
 }
@@ -115,7 +116,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "copy_input":copy_ele_and_input,
     "copy_click":copy_ele_and_click,
     "cookie":getCookie,
-    // "header":getHeader,
+    "fingerPrint":scan_finger_print_,
     "switch_ele_window":info_show_switch_,
     "set_ele_window":set_ele_loc,
     "copy_code":copy_init_code,
@@ -153,6 +154,10 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 function getCookie() {
   copyToClipboard(document.cookie);
   alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
+  
+}
+function scan_finger_print_() {
+  window.open("https://ip77.net/", "_blank"); 
   
 }
 
