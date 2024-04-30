@@ -58,14 +58,58 @@ page.get('${window.location.href}')
 
 test=input('继续 ?')
   
-`  
+`
+class CheckboxOBJ {
+    constructor(father_ele) {
+        this.eles = [];
+        this.father_ele=father_ele;
+        this.config = {
+            div: false,
+            input: true,
+            img: true,
+            a:true,
+            li:true,
+            button:true
+        };
+        for (let key in this.config) this.add(key, this.config[key]);
+    }
 
+    create_ele(labelText, isSelected) {
+        const label = document.createElement("label");
+        label.id = labelText + '_checkbox';
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = isSelected;
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(labelText));
+        label.style.margin = "10px";
+        return label;
+    }
+    add(txt,isSelected) {
+        let e = this.create_ele(txt, isSelected);
+        this.eles.push(e);
+        this.father_ele.appendChild(e);
+        return this;
+    }
+    getValue(ele) {
+        return ele.querySelector('input[type="checkbox"]').checked;
+    }
+    getSelectedEleString(){
+        let aa=[];
+        this.eles.forEach(e=>{
+            if(this.getValue(e)) aa.push(e.querySelector('input[type="checkbox"]').tagName);
+        });
+        return aa.join(',');
+
+    }
+
+}
 
 class SelectAlert {
     constructor() {
         this.alertBox = this.createAlertBox();
         this.createCheckboxes();
-        this.createHelpButton(); // 添加帮助按钮
+        this.createSaveButton(); // 添加帮助按钮
         this.createCancelButton(); // 添加帮助按钮
         this.showAlertBox();
     }
@@ -93,40 +137,44 @@ class SelectAlert {
         checkbox.type = "checkbox";
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(labelText));
+        label.style.margin="5px";
         return label;
     }
     createCheckboxes() {
-        const appleCheckbox = this.createCheckbox("苹果 ");
-        const bananaCheckbox = this.createCheckbox("香蕉 ");
-        const watermelonCheckbox = this.createCheckbox("西瓜 ");
-        this.alertBox.appendChild(appleCheckbox);
-        this.alertBox.appendChild(bananaCheckbox);
-        this.alertBox.appendChild(watermelonCheckbox);
+        var ele_config=new CheckboxOBJ(this.alertBox);   
+        
+        
     
         // 创建 <br> 元素
         const br = document.createElement("br");
         this.alertBox.appendChild(br);
     }
 
-    createHelpButton() {
-        const helpButton = document.createElement("button");
-        helpButton.textContent = "保存";
-        helpButton.style.marginTop = "10px";
-        helpButton.onclick = () => {
+    createSaveButton() {
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "保存";
+        saveButton.style.marginTop = "10px";
+        saveButton.style.marginRight = "10px";
+        saveButton.onclick = () => {
             this.alertBox.style.display='none';
-            alert("配置信息已经保存");
+            //设置元素定位选项
+            window.flag.set(ele_config.getSelectedEleString());
+           
+            AutoDismissAlert("定位配置信息已经保存",1000);
         };
-        this.alertBox.appendChild(helpButton);
+        this.alertBox.appendChild(saveButton);
     }
     createCancelButton() {
-        const helpButton = document.createElement("button");
-        helpButton.textContent = "取消";
-        helpButton.style.marginTop = "10px";
-        helpButton.onclick = () => {
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "取消";
+        cancelButton.style.marginTop = "10px";
+        cancelButton.style.marginRight = "10px";
+        cancelButton.onclick = () => {
             this.alertBox.style.display='none';
             
+            
         };
-        this.alertBox.appendChild(helpButton);
+        this.alertBox.appendChild(cancelButton);
     }
 
     showAlertBox() {

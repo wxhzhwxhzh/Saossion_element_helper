@@ -43,8 +43,11 @@ class Flag{
         this.value=[];
         return this;
     }
+    set(arr){
+        this.value=arr;
+    }
     toString(){
-        return this.value.join(",")        
+        return this.value.join(",")       
     }
     
     
