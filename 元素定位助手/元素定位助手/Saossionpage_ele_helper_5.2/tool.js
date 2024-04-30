@@ -108,6 +108,7 @@ class CheckboxOBJ {
 class SelectAlert {
     constructor() {
         this.alertBox = this.createAlertBox();
+        this.ele_config=new CheckboxOBJ(this.alertBox);
         this.createCheckboxes();
         this.createSaveButton(); // 添加帮助按钮
         this.createCancelButton(); // 添加帮助按钮
@@ -141,7 +142,7 @@ class SelectAlert {
         return label;
     }
     createCheckboxes() {
-        var ele_config=new CheckboxOBJ(this.alertBox);   
+           
         
         
     
@@ -158,7 +159,7 @@ class SelectAlert {
         saveButton.onclick = () => {
             this.alertBox.style.display='none';
             //设置元素定位选项
-            window.flag.set(ele_config.getSelectedEleString());
+            window.flag.set(this.ele_config.getSelectedEleString());
            
             AutoDismissAlert("定位配置信息已经保存",1000);
         };
