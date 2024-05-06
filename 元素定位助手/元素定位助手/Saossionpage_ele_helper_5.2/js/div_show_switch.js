@@ -57,6 +57,13 @@ function toggleSwitch_button() {
 function scan_finger_print(){
     window.open("https://ip77.net/", "_blank");
 }
+function open_video_website(){
+    window.open("https://space.bilibili.com/308704191/channel/collectiondetail?sid=1947582", "_blank");
+}
+function open_chaxun_website(){
+    let info=document.getElementById('search_input').value;
+    window.open("https://drissionpage.cn/search?q="+info, "_blank");
+}
 
 // 获取 on1 按钮元素并添加点击事件监听器
 
@@ -64,6 +71,8 @@ function scan_finger_print(){
 
 
 document.getElementById('on1').addEventListener('click', scan_finger_print);
+document.getElementById('jiaocheng').addEventListener('click', open_video_website);
+document.getElementById('search').addEventListener('click', open_chaxun_website);
 
 
 

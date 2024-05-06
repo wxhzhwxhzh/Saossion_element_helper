@@ -46,6 +46,17 @@ body {
     margin: 5px;
     
   }
+.blue_button {
+    background-color: rgb(47, 31, 148); /* 设置背景色为绿色 */
+    color: white; /* 设置文字颜色为白色，以便在绿色背景上更清晰可见 */
+    border: 2px; /* 移除边框 */
+    padding: 10px 10px; /* 增加内边距，使按钮看起来更大 */
+    font-size: 12px; /* 设置字体大小 */
+    border-radius: 5px; /* 设置边框圆角，使按钮边角更圆润 */
+    cursor: pointer; /* 鼠标悬停时显示手型图标，表明这是一个可点击的按钮 */
+    margin: 5px;
+    
+  }
   
   /* 设置#off1按钮为红色并增大尺寸 */
   #off1 {
@@ -62,3 +73,16 @@ body {
   #on1:hover, #off1:hover {
     opacity: 0.8; /* 鼠标悬停时降低按钮的不透明度 */
   }
+
+
+
+  #search_input {
+    height: 15px;
+    /* width: 300px; */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
