@@ -22,10 +22,15 @@ if (typeof window.localStorage.getItem('is_init') !== 'undefined') {
 }
 
 
+
+
 //-----------------------悬浮时的背景颜色
 
-var element_hover_color='rgba(250, 0, 0, 0.3)';
+var element_hover_color='rgba(250, 0, 0, 0.1)';
+// var element_hover_color_false='rgba(250, 0, 0, 0.01)';
+
 window.flag_value=['a','li','img','input','button'] ;
+
 // ----------------------flag 对象
 class Flag{
     constructor() {
