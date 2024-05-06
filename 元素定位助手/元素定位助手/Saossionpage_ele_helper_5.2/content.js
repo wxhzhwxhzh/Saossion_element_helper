@@ -49,9 +49,7 @@ class Flag{
     toString(){
         return this.value.join(",")       
     }
-    
-    
-   
+  
 
 
 }
