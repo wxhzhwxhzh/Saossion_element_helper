@@ -152,7 +152,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 // 工具库 函数
 function getCookie() {
-  copyToClipboard(document.cookie);
+  main_app.copyToClipboard(document.cookie);
   alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
   
 }
@@ -162,40 +162,40 @@ function scan_finger_print_() {
 }
 
 function getUA() {
-  copyToClipboard(navigator.userAgent);
+  main_app.copyToClipboard(navigator.userAgent);
   
   alert('网页的UA已经复制到剪贴板 \n'+navigator.userAgent);  
 }
 
 
 function showElementDP_simple() {
-  extractInfoAndAlert_simple();  
+  main_app.extractInfoAndAlert_simple();  
 
 }
 
 function showElementDP() {
-  extractInfoAndAlert();
+  main_app.extractInfoAndAlert();
 }
 
 function showElementXpath() {
-  copyElementXPath();
+  main_app.copyElementXPath();
 }
 function copy_ele_and_input() {
-  extractInfoAndAlert_simple_input();
+  main_app.extractInfoAndAlert_simple_input();
 }
 function copy_ele_and_click() {
-  extractInfoAndAlert_simple_click();
+  main_app.extractInfoAndAlert_simple_click();
 }
 
 function refresh() {
-  addClickEventToInputs();
+  main_app.addClickEventToInputs();
   alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
 
 }
 
 function refresh_init() {
-  addClickEventToInputs();
-  listen_for_mousemove();
+  main_app.addClickEventToInputs();
+  main_app.listen_for_mousemove();
 
 }
 
