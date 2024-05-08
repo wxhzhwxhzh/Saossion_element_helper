@@ -61,7 +61,7 @@ class Flag{
     
     }
     reset() {
-        this.value=['a','li','img','input','button'] ;        
+        this.value=['a','li','img','input','button','span'] ;        
     }
     add(ele){
         this.value.push(ele)
