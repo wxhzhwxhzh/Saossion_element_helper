@@ -1,0 +1,10 @@
+{
+    "version": {
+      "message": "7.00"
+    },
+
+    "welcome_message": {
+      "message": "Welcome, __USER_NAME__!"
+    }
+  }
+  

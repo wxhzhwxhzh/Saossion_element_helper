@@ -4,6 +4,8 @@ chrome.contextMenus.removeAll(
 
 );
 
+
+
 // 创建新的右键菜单
 create_right_menu();
 
@@ -29,44 +31,53 @@ function create_right_menu() {
     id: "copyXpath",
     title: "复制 Xpath语法",
     contexts: ["all"]
+  });  
+
+  chrome.contextMenus.create({
+    id: "fingerPrint",
+    title: "指纹检测",
+    contexts: ["all"],
+    
+  });
+
+  // 创建第二级子菜单项1
+  chrome.contextMenus.create({
+    id: "copy",
+    title: "复制",
+    contexts: ["all"]
+  });
+  chrome.contextMenus.create({
+    id: "copy_code",
+    title: "启动代码",
+    contexts: ["all"],   
+    parentId:"copy"
   });
   chrome.contextMenus.create({
     id: "cookie",
-    title: "复制 网页cookie",
+    title: "网页cookie",
     contexts: ["all"],
-    
-  });
-  
-  chrome.contextMenus.create({
-    id: "copy_code",
-    title: "复制 启动代码",
-    contexts: ["all"],   
-    
-  });
-  chrome.contextMenus.create({
-    id: "fingerPrint",
-    title: "浏览器指纹检测",
-    contexts: ["all"],
+    parentId:"copy"
     
   });
   chrome.contextMenus.create({
     id: "copy_input",
-    title: "复制input()语法",
+    title: "input()语法",
     contexts: ["editable"],
-    // parentId: "more"
+    parentId: "copy"
   });
   chrome.contextMenus.create({
     id: "copy_click",
-    title: "复制click()语法",
+    title: "click()语法",
     contexts: ["all"],
-    // parentId: "more"
+    parentId: "copy"
   });
   chrome.contextMenus.create({
     id: "copy_ua",
-    title: "复制网页UA",
+    title: "网页UA",
     contexts: ["all"],
-    // parentId: "more"
+    parentId: "copy"
   });
+
 
   // 创建第二级子菜单项1
   chrome.contextMenus.create({
@@ -100,6 +111,18 @@ function create_right_menu() {
     contexts: ["all"],
     parentId: "more"
   });
+  chrome.contextMenus.create({
+    id: "exe_js",
+    title: "js代码调试",
+    contexts: ["all"],
+    parentId: "more"
+  });
+  chrome.contextMenus.create({
+    id: "get_img",
+    title: "获取所有图片地址",
+    contexts: ["all"],
+    parentId: "more"
+  });
  
   
 
@@ -120,7 +143,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "switch_ele_window":info_show_switch_,
     "set_ele_window":set_ele_loc,
     "copy_code":copy_init_code,
-    "copy_ua":getUA
+    "copy_ua":getUA,
+    "exe_js":exe_js,
+    "get_img":getAllImageLinks
 
  
     
@@ -151,6 +176,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 
 // 工具库 函数
+
 function getCookie() {
   main_app.copyToClipboard(document.cookie);
   alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
@@ -168,6 +194,10 @@ function getUA() {
 }
 
 
+function exe_js() {
+  main_app.execute_js();  
+
+}
 function showElementDP_simple() {
   main_app.extractInfoAndAlert_simple();  
 
@@ -183,6 +213,7 @@ function showElementXpath() {
 function copy_ele_and_input() {
   main_app.extractInfoAndAlert_simple_input();
 }
+
 function copy_ele_and_click() {
   main_app.extractInfoAndAlert_simple_click();
 }
@@ -224,9 +255,43 @@ function  copy_init_code(){
   // AutoDismissAlert('已经复制 \n'+init_code,2000);
   alert('当前网页启动代码已经复制 \n'+init_code);
 }
+function getAllImageLinks() {
+  // 获取当前网页中所有的图片元素
+  const images = document.getElementsByTagName('img');
+  
+  // 创建一个空数组来存储图片链接地址
+  const imageLinks = [];
+  
+  // 遍历所有图片元素，提取图片链接地址并添加到数组中
+  for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      const src = image.src; // 获取图片链接地址
+      imageLinks.push(src); // 将链接地址添加到数组中
+  }
+  
+  // 创建一个新的 div 元素
+  const div = document.createElement('div');
+  div.id = 'img_url'; // 设置 div 元素的 id 属性为 img_url
+  
+  // 将图片链接转换成带链接的 <a> 标签并添加到 div 元素中
+  imageLinks.forEach(link => {
+    const a = document.createElement('a');
+    a.href = link; // 设置 <a> 标签的 href 属性为图片链接地址
+    a.textContent = link; // 设置 <a> 标签的文本内容为图片链接地址
+    div.appendChild(a); // 将 <a> 标签添加到 div 元素中
+    div.appendChild(document.createElement('br')); // 添加一个换行
+  });
+  
+  // 将新创建的 div 元素插入到 body 中
+  document.body.appendChild(div);
 
-
-
+  // 打印出获取到的所有图片链接地址
+  console.log("当前网页所有图片链接地址：");
+  console.log(imageLinks);
+  
+  // 返回图片链接数组（可选）
+  return imageLinks;
+}
 
 
 

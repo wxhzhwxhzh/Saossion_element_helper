@@ -61,7 +61,7 @@ class Flag{
     
     }
     reset() {
-        this.value=['a','li','img','input','button','span'] ;        
+        this.value=['a','li','img','input','button'] ;        
     }
     add(ele){
         this.value.push(ele)
@@ -299,7 +299,7 @@ class MainApp{
                 // 经过元素时给元素加个高亮
                 this.style.backgroundColor = self.element_hover_color;
                  // 修改元素的边框样式
-                this.style.border = "1px solid green";
+                this.style.border = "";
                 // 暂存当前元素
                 theEle = this;
     
@@ -542,6 +542,22 @@ class MainApp{
         alert('✔️已经复制该精简语法到剪贴板  \n'+tishi2);
     
     }
+
+    execute_js() {
+        let result = prompt("输入你要执行的js语句:", "alert('123');");
+        if (result !== null && result.trim() !== "") {
+            try {
+                // 使用 try...catch 捕获可能出现的错误
+                eval(result);
+            } catch (error) {
+                // 如果执行出错，显示错误信息
+                alert('执行出错：' + error);
+            }
+        } else {
+            // 用户点击了取消按钮或输入为空
+            alert('执行不成功！');
+        }
+    }
     
     extractInfoAndAlert_simple_click(){
     
@@ -593,6 +609,52 @@ class MainApp{
       }
 
 
+      // 获取当前网页中所有的图片元素
+       getAllImageLinksTo(id) {
+        const images = document.getElementsByTagName('img');
+        
+        // 创建一个空数组来存储图片链接地址
+        const imageLinks = [];
+        
+        // 遍历所有图片元素，提取图片链接地址并添加到数组中
+        for (let i = 0; i < images.length; i++) {
+            const image = images[i];
+            const src = image.src; // 获取图片链接地址
+            imageLinks.push(src); // 将链接地址添加到数组中
+        }
+        
+        // 获取 id 为 'img_url' 的 div 元素
+        let div = document.getElementById('img_url');
+        
+        // 如果该 div 元素不存在，则创建一个新的 div 元素
+        if (!div) {
+            div = document.createElement('div');
+            div.id = 'img_url'; // 设置 div 元素的 id 属性为 img_url
+            document.getElementById(id).appendChild(div); // 将新创建的 div 元素插入到指定 id 的父元素中
+        }
+        
+        // 获取该 div 中已存在的所有链接
+        const existingLinks = div.querySelectorAll('a');
+        const existingLinkUrls = Array.from(existingLinks).map(link => link.href);
+        
+        // 将图片链接转换成带链接的 <a> 标签并添加到 div 元素中（如果链接不存在）
+        imageLinks.forEach(link => {
+            if (!existingLinkUrls.includes(link)) {
+                const a = document.createElement('a');
+                a.href = link; // 设置 <a> 标签的 href 属性为图片链接地址
+                a.textContent = '✅ ' + link; // 设置 <a> 标签的文本内容为图片链接地址 ☑️
+                a.target = '_blank';
+                div.appendChild(a); // 将 <a> 标签添加到 div 元素中
+                div.appendChild(document.createElement('br')); // 添加一个换行
+            }
+        });       
+
+
+        // 返回图片链接数组（可选）
+        return imageLinks;
+    }
+
+
 }
 
  //创建主程序对象 
@@ -601,10 +663,11 @@ class MainApp{
     
     // ------------------遮罩层类
     class OverlayElement {
-        constructor() {
+        constructor(id) {
             // 创建遮罩层元素
             this.element = document.createElement('div');
-            this.element.id = 'overlay';
+            
+            this.element.id = id;
             // 将遮罩层添加到 body 中
             document.body.appendChild(this.element);
             // 设置默认样式
@@ -618,6 +681,13 @@ class MainApp{
             this.iframeInnerText=`
             <div><iframe id="code_helper" src="${this.iframeSrc}" width="900" height="700" frameborder="0"></iframe></div>
             `;
+      
+            // 设置遮罩层内嵌的div
+            this.divInnerText=`
+            <div id="new_div" style="background-color: #ffffff; width: 900px; height: 700px; overflow-y: scroll; padding: 20px;font-size: 12px;">☑️资源列表<hr></div>
+
+            `;
+      
             // alert(this.iframeSrc);
         }
     
@@ -650,11 +720,14 @@ class MainApp{
         // 切换显示/隐藏状态
         switch_show_hide() {
             this.element.style.display = this.element.style.display === 'none' ? 'flex' : 'none';
+
         }
     
         // 设置内部 HTML 内容
         setInnerHtml(txt) {
-            this.element.innerHTML = txt;
+            
+
+            this.element.innerHTML =txt;
         }
     
         // 设置点击事件处理函数
@@ -668,12 +741,19 @@ class MainApp{
     
     
     // 创建遮罩层对象
-    const overlay = new OverlayElement();
+    var overlay = new OverlayElement('overlay');
     // 输出插件的 ID
     console.log(overlay.pluginId);
     // 设置遮罩层内嵌的网页
     overlay.setInnerHtml(overlay.iframeInnerText);
     // overlay.setShow();
+
+    // 创建遮罩层对象
+    var overlay2 = new OverlayElement('overlay2');
+    overlay2.setInnerHtml(overlay2.divInnerText);
+    
+
+   
     
     
     
@@ -744,16 +824,20 @@ class MainApp{
           this.element.style.right = right;
           this.element.style.top = top;
         }
-      
+
         // 设置点击事件处理函数  onclick 后面跟函数名
         setOnClick(func) {
-          this.element.onclick =func;
+            this.element.addEventListener('click', func);
+        }
+        s1(){
+            overlay.switch_show_hide();
+        }
+        s2(){
+            main_app.getAllImageLinksTo('new_div');
+            overlay2.switch_show_hide();
         }
       
-        // 切换 overlay
-        switchOverlay() {
-          overlay.switch_show_hide();
-        }
+       
       }
       
       
@@ -768,6 +852,15 @@ class MainApp{
     
       newElement2.setInnerTextWithBr('代码助手开关');
       newElement2.setPosition('0px', '360px');
-      newElement2.setOnClick(newElement2.switchOverlay);
+      newElement2.setOnClick(newElement2.s1);
+
+
+      var res_buttont = new CustomElement();
+    
+      res_buttont.setInnerTextWithBr('页面资源开关');
+      res_buttont.setPosition('0px', '500px');
+      res_buttont.setOnClick(res_buttont.s2);
+
+
 
 
