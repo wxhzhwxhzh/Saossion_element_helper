@@ -607,11 +607,14 @@ class MainApp{
         };
         document.body.appendChild(temp);
       }
+  
+
 
 
       // 获取当前网页中所有的图片元素
        getAllImageLinksTo(id) {
-        const images = document.getElementsByTagName('img');
+        const images = this.getElementsByName(['img','source','audio']);
+        // const images = document.getElementsByTagName('img');
         
         // 创建一个空数组来存储图片链接地址
         const imageLinks = [];
@@ -642,7 +645,12 @@ class MainApp{
             if (!existingLinkUrls.includes(link)) {
                 const a = document.createElement('a');
                 a.href = link; // 设置 <a> 标签的 href 属性为图片链接地址
-                a.textContent = '✅ ' + link; // 设置 <a> 标签的文本内容为图片链接地址 ☑️
+                //  设置 <a> 标签的文本内容为图片链接地址 ☑️
+                if(link.includes('.mp4')) {a.textContent = '🔷 ' + link;} 
+                else if(link.includes('.m4a')){a.textContent = '🔶 ' + link;}
+                else{a.textContent = '✅* ' + link;}
+               
+                
                 a.target = '_blank';
                 div.appendChild(a); // 将 <a> 标签添加到 div 元素中
                 div.appendChild(document.createElement('br')); // 添加一个换行
@@ -652,6 +660,20 @@ class MainApp{
 
         // 返回图片链接数组（可选）
         return imageLinks;
+    }
+
+    getElementsByName(tagNames) {
+        let elements = [];
+    
+        // 遍历标签名称数组
+        tagNames.forEach(tagName => {
+            // 获取指定标签名称的所有元素
+            const elems = Array.from(document.getElementsByTagName(tagName));
+            // 将获取到的元素数组合并到结果数组中
+            elements = elements.concat(elems);
+        });
+    
+        return elements;
     }
 
 
