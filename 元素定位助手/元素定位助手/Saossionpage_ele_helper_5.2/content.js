@@ -676,6 +676,41 @@ class MainApp{
         return elements;
     }
 
+    
+ download_video() {
+    // 获取包含 shadow root 的元素
+    const toolbarShadow = document.getElementById('video_download_toolbar_shadow');
+  
+    // 如果找到了元素
+    if (toolbarShadow) {
+      // 获取 shadow root
+      const shadowRoot = toolbarShadow.shadowRoot;
+  
+      // 如果存在 shadow root
+      if (shadowRoot) {
+        // 在 shadow root 中查询所有 img 元素
+        const imgElements = shadowRoot.querySelectorAll('img');
+  
+        // 遍历所有的 img 元素
+        imgElements.forEach(imgElement => {
+          // 获取每个 img 元素的 src 属性
+          const src = imgElement.getAttribute('src');
+          // 检查 src 属性中是否包含 'download' 字符串
+          if (src.includes('download')) {
+            // 如果包含，执行点击操作
+            imgElement.click();
+          }
+          console.log(src);
+        }
+        );
+      }
+    } else {
+      console.log('没有找到下载按钮！')
+      alert('该功能仅适用于 星愿浏览器！！')
+    }
+  
+  }
+
 
 }
 

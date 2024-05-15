@@ -3,48 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overlay Example</title>
+<title>Bing Daily Background</title>
 <style>
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-    display: none; /* 初始状态下隐藏 */
-}
-
-.content {
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-    margin: 50px auto;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+    }
 </style>
 </head>
 <body>
-
-<div class="overlay" id="overlay">
-
-    <button onclick="toggleOverlay()">显示/隐藏遮罩层2</button>
-</div>
-
-<div class="content">
-    <h1>这是网页内容</h1>
-    <p>网页内容的一部分...</p>
-    <button onclick="toggleOverlay()">显示/隐藏遮罩层</button>
-</div>
-
-
 <script>
-function toggleOverlay() {
-    var overlay = document.getElementById('overlay');
-    overlay.style.display = (overlay.style.display == 'block') ? 'none' : 'block';
-}
-</script>
+    var aa=456;
+    debugger;
+    console.log(aa);
+function setBingDailyBackground() {
+    // 发送 HTTP 请求到必应每日图片 API
+    fetch('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1')
+        .then(response => response.json())
+        .then(data => {
+            // 解析返回的 JSON 数据，获取图片链接
+            const imageUrl = `https://www.bing.com${data.images[0].url}`;
 
+            // 创建一个新的 Image 对象
+            const img = new Image();
+
+            // 当图片加载完成时执行以下操作
+            img.onload = function() {
+                // 将获取到的图片设置为当前网页的背景图
+                document.body.style.backgroundImage = `url(${imageUrl})`;
+            };
+
+            // 设置图片的 src，触发加载
+            img.src = imageUrl;
+        })
+        .catch(error => {
+            console.error('获取图片时出错:', error);
+        });
+}
+
+// 页面加载完成时调用函数设置必应每日图片为当前网页的背景图
+window.onload = setBingDailyBackground;
+</script>
 </body>
 </html>

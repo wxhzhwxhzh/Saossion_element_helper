@@ -123,6 +123,12 @@ function create_right_menu() {
     contexts: ["all"],
     parentId: "more"
   });
+  chrome.contextMenus.create({
+    id: "download_video",
+    title: "视频解析下载",
+    contexts: ["all"],
+    parentId: "more"
+  });
  
   
 
@@ -145,7 +151,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     "copy_code":copy_init_code,
     "copy_ua":getUA,
     "exe_js":exe_js,
-    "get_img":getAllImageLinks
+    "get_img":getAllImageLinks,
+    "download_video":download_video
 
  
     
@@ -246,6 +253,11 @@ function info_show_switch_(){
 }
 function set_ele_loc(){
   selectAlert.show();
+}
+
+function download_video() {
+  main_app.download_video();
+
 }
 
 
