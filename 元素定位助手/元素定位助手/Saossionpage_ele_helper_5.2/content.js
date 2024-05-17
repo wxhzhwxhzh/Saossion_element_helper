@@ -81,6 +81,8 @@ class Flag{
 
 }
 
+// 调用函数设置悬浮窗
+setupFloatingWindow();
 
 //----------封装主函数
 class MainApp{
@@ -328,6 +330,7 @@ class MainApp{
                 
     
                 window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
+                
     
                 
       
@@ -400,6 +403,9 @@ class MainApp{
         
             document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
 
+            // document.getElementById('float_content').textContent=xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
+            // this.format_the_text('float_content');
+
 
             // 获取包含文本的 span 元素
             let spanElement = document.getElementById('show');
@@ -423,16 +429,18 @@ class MainApp{
         
             // 更新 span 元素的内容为新的文本内容
             spanElement.innerHTML = newContent;
+            document.getElementById('float_content').innerHTML=newContent;
             
         });
         
     
     }  
-    // -------------------格式化字符串
-    
-    format_the_text(){
+    // -------------------格式化字符串    
+
+
+    format_the_text(id){
           // 获取包含文本的 span 元素
-          let spanElement = document.getElementById('show');
+          let spanElement = document.getElementById(id);
     
           // 获取 span 元素内的文本内容
           let textContent = spanElement.textContent;
@@ -893,6 +901,11 @@ class MainApp{
             main_app.getAllImageLinksTo('new_div');
             overlay2.switch_show_hide();
         }
+
+        s3(){
+            document.getElementById('floatingWindow').style.display='block';
+        }
+        
       
        
       }
@@ -912,11 +925,118 @@ class MainApp{
       newElement2.setOnClick(newElement2.s1);
 
 
-      var res_buttont = new CustomElement();
+   
+
+      var float_window_buttont = new CustomElement();
     
-      res_buttont.setInnerTextWithBr('页面资源开关');
-      res_buttont.setPosition('0px', '500px');
-      res_buttont.setOnClick(res_buttont.s2);
+      float_window_buttont.setInnerTextWithBr('信息浮窗开关');
+      float_window_buttont.setPosition('0px', '500px');
+      float_window_buttont.setOnClick(float_window_buttont.s3);
+
+
+
+
+// 创建和配置悬浮窗
+function setupFloatingWindow() {
+    // 创建悬浮窗
+    var floatingWindow = document.createElement("div");
+    floatingWindow.classList.add("floating-window");
+    floatingWindow.id = "floatingWindow";
+    
+    // 创建标题栏
+    var titleBar = document.createElement("div");
+    titleBar.classList.add("title-bar");
+    titleBar.id = "titleBar";
+    titleBar.textContent = "信息浮窗(可拖动)";
+    
+    // 创建关闭按钮
+    var closeBtn = document.createElement("span");
+    closeBtn.classList.add("close-btn");
+    closeBtn.id = "closeBtn";
+    closeBtn.innerHTML = "&nbsp;&nbsp;X";
+    
+    // 添加关闭按钮到标题栏
+    titleBar.appendChild(closeBtn);
+    
+    // 创建内容区域
+    var content = document.createElement("div");
+    content.id='float_content';
+    content.classList.add("content");
+    content.textContent = "浮窗内容";
+    content.textContent=window.info;
+    
+    
+    // 将标题栏和内容区域添加到浮窗
+    floatingWindow.appendChild(titleBar);
+    floatingWindow.appendChild(content);
+    
+    // 将浮窗添加到body中
+    document.body.appendChild(floatingWindow);
+    
+    // 配置悬浮窗
+    configureFloatingWindow(floatingWindow, titleBar, closeBtn);
+}
+
+// 配置悬浮窗
+function configureFloatingWindow(floatingWindow, titleBar, closeBtn) {
+    // 初始化鼠标位置变量
+    var offsetX, offsetY;
+
+    // 鼠标按下事件监听器
+    titleBar.addEventListener('mousedown', function(e) {
+        // 计算鼠标相对于浮窗左上角的偏移量
+        offsetX = e.clientX - floatingWindow.offsetLeft;
+        offsetY = e.clientY - floatingWindow.offsetTop;
+
+        // 添加鼠标移动和鼠标释放事件监听器
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+
+    // 鼠标移动事件处理函数
+    function onMouseMove(e) {
+        // 计算浮窗的新位置
+        var newX = e.clientX - offsetX;
+        var newY = e.clientY - offsetY;
+
+        // 更新浮窗的位置
+        floatingWindow.style.left = newX + 'px';
+        floatingWindow.style.top = newY + 'px';
+    }
+
+    // 鼠标释放事件处理函数
+    function onMouseUp() {
+        // 移除鼠标移动和鼠标释放事件监听器
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    // 关闭按钮点击事件监听器
+    closeBtn.addEventListener('click', function() {
+        // 隐藏浮窗
+        floatingWindow.style.display = 'none';
+    });
+
+    //最小化按钮
+    var yuansu_fu_chuang=document.createElement('button');
+    yuansu_fu_chuang.id='yuansu_fu_chuang';
+    yuansu_fu_chuang.classList.add('cebianlan_Button')
+    yuansu_fu_chuang.innerHTML='显示信息浮窗';
+    document.body.appendChild(yuansu_fu_chuang);
+    yuansu_fu_chuang.addEventListener('click', function() {
+        // 隐藏浮窗
+        floatingWindow.style.display = 'block';
+    });
+
+
+
+
+}
+
+
+
+
+
 
 
 
