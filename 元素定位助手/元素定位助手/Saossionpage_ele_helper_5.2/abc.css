@@ -130,4 +130,65 @@
 }
 
 
+/* 侧边栏按钮 */
+#cebianlan {
+    position: fixed;
+    right: 5%;
+    bottom: 70%;
+    z-index: 2000;
+}
+
+/* 去掉列表项的默认黑点 */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.yuananniu {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border:#6792c4;
+    font-size: x-large;
+    /* font-weight: bold; */
+    color: brown;
+    margin: 3px;
+}
+.yuananniu:hover {
+    transform: scale(1.2);
+    background-color: lightgray;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 2000;
+    top: 100%;
+    left: 0;
+    width: 120px;
+    background-color: #ffffff80;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s;
+}
+
+.yuananniu:hover .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+}
+
+.dropdown-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: small;
+}
+
+.dropdown-item:hover {
+    background-color: lightgray;
+}
+
 

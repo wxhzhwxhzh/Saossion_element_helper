@@ -329,7 +329,7 @@ class MainApp{
                 window.anotherGlobalVar_simple = Name + attrib_info_simple;
                 
     
-                window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--></b>@@" + Name + attrib_info + text ;
+                window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--> </b>@@" + Name + attrib_info + text;
                 
     
                 
@@ -429,7 +429,7 @@ class MainApp{
         
             // 更新 span 元素的内容为新的文本内容
             spanElement.innerHTML = newContent;
-            document.getElementById('float_content').innerHTML=newContent;
+            document.getElementById('float_content').innerHTML= "<pre><code>"+newContent+"</pre></code>";
             
         });
         
@@ -844,97 +844,68 @@ class MainApp{
         }
     
     
-      //----------------侧边栏按钮类
-      class CustomElement {
-        constructor() {
-          // 创建按钮元素并添加到页面中
-          this.element = document.createElement('button');
-          this.element.id = 'cebianlan_Button';
-          document.body.appendChild(this.element);
       
-          // 设置默认样式
-          this.setDefaultStyle();
-        }
       
-        // 设置默认样式
-        setDefaultStyle() {
-          // 默认样式对象
-          const defaultStyle = {
-            border: '1px solid black', // 默认边框线
-            position: 'fixed', // 默认定位方式
-            right: '0', // 默认 right 位置
-            top: '0', // 默认 top 位置
-            zIndex: 2000, // 始终显示到最前面
-            fontSize: '15px',
-            padding: '5px' // 内边距
-          };
-      
-          // 将默认样式应用到按钮元素上
-          Object.assign(this.element.style, defaultStyle);
-        }
-    
-      
-        // 修改背景色
-        setBackgroundColor(color) {
-          this.element.style.backgroundColor = color;
-        }
-      
-        // 修改内容
-        setInnerTextWithBr(text) {
-          this.element.innerHTML = text.split('').join('<br>');
-        }
-      
-        // 修改位置
-        setPosition(right, top) {
-          this.element.style.right = right;
-          this.element.style.top = top;
-        }
+// 万能侧边栏圆形按钮
 
-        // 设置点击事件处理函数  onclick 后面跟函数名
-        setOnClick(func) {
-            this.element.addEventListener('click', func);
-        }
-        s1(){
-            overlay.switch_show_hide();
-        }
-        s2(){
-            main_app.getAllImageLinksTo('new_div');
-            overlay2.switch_show_hide();
-        }
+var side_button_code = `
+<ul>
+<li>
+    <button class='yuananniu' title="开关">
+        骚
+        <div class="dropdown-menu">
+            <div id="sao1" class="dropdown-item">元素浮窗开关</div>
+            <div id="sao2" class="dropdown-item">代码助手开关</div>
+            <div id="sao3" class="dropdown-item">信息浮窗开关</div>
+            <div id="sao4" class="dropdown-item">复制cookie</div>
+            <div id="sao5" class="dropdown-item">复制UA</div>
+            <div id="sao6" class="dropdown-item">刷新定位</div>
+        </div>
+    </button>
+</li>
 
-        s3(){
-            document.getElementById('floatingWindow').style.display='block';
+</ul>
+
+    `
+    var side_button=document.createElement('div');
+    side_button.id='cebianlan';
+    side_button.innerHTML=side_button_code;
+    document.body.appendChild(side_button);
+
+    document.getElementById('sao1').addEventListener('click',()=>{
+        info_show_switch();
+    });
+    document.getElementById('sao2').addEventListener('click',()=>{
+        overlay.switch_show_hide();
+    });
+
+    document.getElementById('sao3').addEventListener('click', () => {
+        let xuanfu_chuang = document.getElementById('floatingWindow');
+        if (xuanfu_chuang.style.display === 'none') {
+            xuanfu_chuang.style.display = 'block';
+        } else {
+            xuanfu_chuang.style.display = 'none';
         }
-        
-      
-       
-      }
-      
-      
-      // 使用示例
-      var newElement = new CustomElement();
-    
-      newElement.setInnerTextWithBr('元素浮窗开关');
-      newElement.setPosition('0px', '200px');
-      newElement.setOnClick(info_show_switch);
-    
-      var newElement2 = new CustomElement();
-    
-      newElement2.setInnerTextWithBr('代码助手开关');
-      newElement2.setPosition('0px', '360px');
-      newElement2.setOnClick(newElement2.s1);
+    });
 
+    document.getElementById('sao4').addEventListener('click',()=>{
+        main_app.copyToClipboard(document.cookie);
+        alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
+    });
 
-   
+    document.getElementById('sao5').addEventListener('click',()=>{
+        main_app.copyToClipboard(navigator.userAgent);
+        alert('网页的UA已经复制到剪贴板 \n'+navigator.userAgent);  
+    });
 
-      var float_window_buttont = new CustomElement();
-    
-      float_window_buttont.setInnerTextWithBr('信息浮窗开关');
-      float_window_buttont.setPosition('0px', '500px');
-      float_window_buttont.setOnClick(float_window_buttont.s3);
+    document.getElementById('sao6').addEventListener('click',()=>{
+         main_app.addClickEventToInputs();
+        alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!'); 
+    });
 
 
 
+      
 
 // 创建和配置悬浮窗
 function setupFloatingWindow() {
