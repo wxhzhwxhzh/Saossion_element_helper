@@ -1,4 +1,6 @@
 
+  
+
 
 class Config {
     constructor() {
@@ -429,8 +431,12 @@ class MainApp{
         
             // 更新 span 元素的内容为新的文本内容
             spanElement.innerHTML = newContent;
-            document.getElementById('float_content').innerHTML= "<pre><code>"+newContent+"</pre></code>";
-            
+
+            let xuanfu = document.getElementById('float_content');
+            if (xuanfu) {
+            xuanfu.innerHTML = "<pre><code>" + newContent + "</code></pre>";
+            }
+
         });
         
     
@@ -620,7 +626,7 @@ class MainApp{
 
 
       // 获取当前网页中所有的图片元素
-       getAllImageLinksTo(id) {
+       getAllImageLinksTo(id) { 
         const images = this.getElementsByName(['img','source','audio']);
         // const images = document.getElementsByTagName('img');
         
@@ -849,9 +855,8 @@ class MainApp{
 // 万能侧边栏圆形按钮
 
 var side_button_code = `
-<ul>
-<li>
-    <button class='yuananniu' title="开关">
+
+    <div id='yuananniu' class="yuananniu" title="开关">
         骚
         <div class="dropdown-menu">
             <div id="sao1" class="dropdown-item">元素浮窗开关</div>
@@ -861,10 +866,8 @@ var side_button_code = `
             <div id="sao5" class="dropdown-item">复制UA</div>
             <div id="sao6" class="dropdown-item">刷新定位</div>
         </div>
-    </button>
-</li>
+    </div>
 
-</ul>
 
     `
     var side_button=document.createElement('div');
@@ -902,9 +905,12 @@ var side_button_code = `
          main_app.addClickEventToInputs();
         alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!'); 
     });
-
-
-
+    
+    // 变成可拖拽的按钮
+    $(function() {
+        $("#yuananniu").draggable();
+      });
+      
       
 
 // 创建和配置悬浮窗
@@ -988,16 +994,10 @@ function configureFloatingWindow(floatingWindow, titleBar, closeBtn) {
         floatingWindow.style.display = 'none';
     });
 
-    //最小化按钮
-    var yuansu_fu_chuang=document.createElement('button');
-    yuansu_fu_chuang.id='yuansu_fu_chuang';
-    yuansu_fu_chuang.classList.add('cebianlan_Button')
-    yuansu_fu_chuang.innerHTML='显示信息浮窗';
-    document.body.appendChild(yuansu_fu_chuang);
-    yuansu_fu_chuang.addEventListener('click', function() {
-        // 隐藏浮窗
-        floatingWindow.style.display = 'block';
-    });
+    closeBtn.click();
+
+
+   
 
 
 

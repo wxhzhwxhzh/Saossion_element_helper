@@ -1,86 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Page</title>
-    <style>
-        #cebianlan {
-            position: fixed;
-            right: 4%;
-            bottom: 40%;
-        }
-
-        /* 去掉列表项的默认黑点 */
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .yuananniu {
-            position: relative;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: x-large;
-            /* font-weight: bold; */
-            color: brown;
-            margin: 3px;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 120px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px 0;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s;
-        }
-
-        .yuananniu:hover .dropdown-menu {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .dropdown-item {
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: small;
-        }
-
-        .dropdown-item:hover {
-            background-color: lightgray;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拖拽示例</title>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<style>
+  #cebianlan {
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    padding: 20px;
+    text-align: center;
+  }
+</style>
 </head>
-
 <body>
-    <div id="cebianlan">
-        <ul>
-            <li>
-                <button class='yuananniu' title="开关">
-                    骚
-                    <div class="dropdown-menu">
-                        <div id="sao1" class="dropdown-item">元素浮窗开关</div>
-                        <div id="sao2" class="dropdown-item">代码助手开关</div>
-                        <div id="sao3" class="dropdown-item">信息浮窗开关</div>
-                        <div id="sao4" class="dropdown-item">复制cookie</div>
-                        <div id="sao5" class="dropdown-item">复制UA</div>
-                        <div id="sao6" class="dropdown-item">解析网页视频</div>
-                    </div>
-                </button>
-            </li>
-    
-        </ul>
-    </div>
-</body>
 
+<div id="cebianlan">
+  <p>拖拽我</p>
+  <button>434</button>
+</div>
+
+<script src="./元素定位助手/元素定位助手/Saossionpage_ele_helper_5.2/js/jquery-3.7.1.min.js"></script>
+<script src="./元素定位助手/元素定位助手/Saossionpage_ele_helper_5.2/js/jquery-ui.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#cebianlan").draggable();
+  });
+</script>
+
+</body>
 </html>
