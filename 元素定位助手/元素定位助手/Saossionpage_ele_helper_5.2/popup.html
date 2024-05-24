@@ -1,94 +1,63 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="css/popup.css" rel="stylesheet">
-    <link href="css/button.css" rel="stylesheet">
-    
-    
-   
-</head>
-
-<body>
-
-    <div class="logo" style="padding-left: 5%;justify-content: center;">
-        <a target="ghelper" href="http://g1879.gitee.io/drissionpagedocs/">
-            <img id="saologo" src="img/saoshen.png"></a>
-            <h2>骚神库DP助手 7.1.1 正式版</h2>     
-            
-        
-    </div>
-    
-    <div class="container">
-        <div class="main">
-            <div class="spinner">                
-                <hr>
-                
-                <!-- <div class="div_kaiguan" >
-                    <span class="span_kaiguan" >隐藏信息展示栏</span>
-                    <label class="switch">
-                        <input id="kaiguan1" class="kaiguan" type="checkbox">
-                        <span class="slider"></span>
-                    </label>
-                </div> -->
-
-                <div class="div_kaiguan" >
-                    <span class="span_kaiguan" >超级按钮</span>
-                    <label class="switch">
-                        <input id="kaiguan2" class="kaiguan" type="checkbox">
-                        <span class="slider"></span>
-                    </label>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link href="css/popup.css" rel="stylesheet">
+        <link href="css/button.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="logo" style="padding-left: 5%;justify-content: center;">
+            <a target="ghelper" href="http://g1879.gitee.io/drissionpagedocs/">
+                <img id="saologo" src="img/saoshen.png">
+            </a>
+            <h2>骚神库DP助手 7.1.1 正式版</h2>
+        </div>
+        <div class="container">
+            <div class="main">
+                <div class="spinner">
+                    <hr>
+                    
+                    <div class="div_kaiguan">
+                        <span class="span_kaiguan">超级按钮</span>
+                        <label class="switch">
+                            <input id="kaiguan2" class="kaiguan" type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="div_kaiguan">
+                        <span class="span_kaiguan">切换UA</span>
+                        <label class="switch">
+                            <select style="height: 25px;">
+                                <option value="option1">PC端</option>
+                                <option value="option2">安卓</option>
+                                <option value="option3">苹果</option>
+                            </select>
+                        </label>
+                    </div>
+                    <hr>
+                    <button id="on1" class="green_button">浏览器 指纹检测</button>
+                    <!-- <button  id="off1">关闭信息展示栏</button> -->
+                    <button id="jiaocheng" class="green_button">DP库 新手入门视频教程</button>
+                    <hr>
+                    <input id="search_input" type="text" placeholder="drissionpage 语法速查">
+                    <button id="search" class="blue_button">查询</button>
+                    <hr>
+                    <a id="code_helper" href="https://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank" style="font-size: medium;">
+                        <b>📌骚神网官网</b>
+                    </a>
+                    <hr>
+                    <a id="jitui" href="coffee.html" target="_blank" style="font-size: medium;">
+                        <b>☕请作者喝可乐</b>
+                    </a>
+                    <hr>
+                    <p>使用帮助:按F8 复制鼠标所在处元素语法</p>
+                    <p>使用帮助:按F9 深度扫描 定位动态元素</p>
+                    <div>
+                        信息展示窗口当前状态 <span id="ceshi">...</span>
+                    </div>
                 </div>
-
-  
-
-                <div class="div_kaiguan" >
-                    <span class="span_kaiguan" >切换UA</span>
-                    <label class="switch">
-                        <select style="height: 25px;">
-                            <option  value="option1">PC端</option>
-                            <option value="option2">安卓</option>
-                            <option value="option3">苹果</option>
-                            
-                        </select>
-                    </label>
-                </div>
-
-          
-     
-
-
-                <hr>
-                <button  id="on1"  class="green_button" >浏览器 指纹检测</button>
-                <!-- <button  id="off1">关闭信息展示栏</button> -->
-                
-                <button  id="jiaocheng" class="green_button">DP库 新手入门视频教程</button>
-                <hr>
-
-                <input id="search_input" type="text" placeholder="drissionpage 语法速查">
-                <button  id="search" class="blue_button">查询</button>
-                <hr>
-                
-                <a  id="code_helper"  href="https://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank" style="font-size: medium;" > <b>📌骚神网官网</b></a>
-                <hr>
-                <a  id="jitui"  href="coffee.html" target="_blank" style="font-size: medium;" > <b>☕请作者喝可乐</b></a>
-                
-                
-
- 
-
-                <hr>
-                <p>使用帮助:按F8 复制鼠标所在处元素语法</p>
-                <p>使用帮助:按F9 深度扫描 定位动态元素</p>
-                <div>信息展示窗口当前状态 <span id="ceshi" > ...</span>   </div>
-                
-                
             </div>
         </div>
-    </div>
-
-    <script src="js/popup.js"></script>
-</body>
-
+        <script src="js/popup.js"></script>
+    </body>
 </html>
