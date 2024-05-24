@@ -865,6 +865,8 @@ var side_button_code = `
             <div id="sao4" class="dropdown-item">复制cookie</div>
             <div id="sao5" class="dropdown-item">复制UA</div>
             <div id="sao6" class="dropdown-item">刷新定位</div>
+            <div id="sao7" class="dropdown-item">指纹检测</div>
+            <div id="sao8" class="dropdown-item">视频解析</div>
         </div>
     </div>
 
@@ -905,6 +907,13 @@ var side_button_code = `
          main_app.addClickEventToInputs();
         alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!'); 
     });
+    document.getElementById('sao7').addEventListener('click',()=>{
+        window.open("https://ip77.net/", "_blank"); 
+    });
+
+
+
+
     
     // 变成可拖拽的按钮
     $(function() {
