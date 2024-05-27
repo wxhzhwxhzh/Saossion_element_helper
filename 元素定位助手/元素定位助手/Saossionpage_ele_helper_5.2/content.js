@@ -910,6 +910,9 @@ var side_button_code = `
     document.getElementById('sao7').addEventListener('click',()=>{
         window.open("https://ip77.net/", "_blank"); 
     });
+    document.getElementById('sao8').addEventListener('click',()=>{
+        window.open("https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html", "_blank"); 
+    });
 
 
 
