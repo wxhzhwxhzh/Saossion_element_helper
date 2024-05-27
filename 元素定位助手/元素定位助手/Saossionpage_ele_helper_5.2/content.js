@@ -56,32 +56,38 @@ class Config {
 }
 
 // ----------------------flag 对象
-class Flag{
+class Flag {
     constructor() {
-        this.value=[];
+        this.value = [];
         this.reset();
-    
     }
+
     reset() {
-        this.value=['a','li','img','input','button'] ;        
+        this.value = ['a', 'li', 'img', 'input', 'button'];
     }
-    add(ele){
-        this.value.push(ele)
+
+    add(ele) {
+        this.value.push(ele);
     }
-    clear(){
-        this.value=[];
+
+    clear() {
+        this.value = [];
         return this;
     }
-    set(arr){
-        this.value=arr;
-    }
-    toString(){
-        return this.value.join(",")       
-    }
-    
 
+    set(arr) {
+        this.value = arr;
+    }
 
+    toString() {
+        return this.value.join(",");
+    }
+
+    toArray() {
+        return this.value.slice(); // 返回数组的副本，避免直接返回引用
+    }
 }
+
 
 // 调用函数设置悬浮窗
 setupFloatingWindow();
@@ -140,7 +146,33 @@ class MainApp{
 
     }
 
- 
+     getAllElementsOfType(types) {
+        var elements = []; // 用于存放所有找到的指定类型的元素
+    
+        // 定义一个函数，用于在指定的文档中查找元素并将其添加到元素数组中
+        function findElementsInDocument(doc) {
+            types.forEach(function(type) {
+                elements.push(...Array.from(doc.querySelectorAll(type)));
+            });
+        }
+    
+        // 在当前文档中查找指定类型的元素
+        findElementsInDocument(document);
+    
+        // // 遍历当前网页中的所有 iframe 元素
+        // Array.from(document.querySelectorAll('iframe')).forEach(function(iframe) {
+        //     try {
+        //         var iframeDocument = iframe.contentWindow.document;
+        //         // 在 iframe 中查找指定类型的元素
+        //         findElementsInDocument(iframeDocument);
+        //     } catch (error) {
+        //         console.error('Error accessing iframe content:', error);
+        //     }
+        // });
+    
+        return elements;
+    }
+    
 
         // -------------------------------------------创建导航信息栏
     
@@ -198,10 +230,10 @@ class MainApp{
     //打印某个元素的所有属性值
     printElementAttributesAsString(element) {
         // 检查输入是否是一个元素
-        if (!(element instanceof Element)) {
-            console.error('输入必须是一个HTML元素');
-            return;
-        }
+        // if (!(element instanceof Element)) {
+        //     console.error('输入必须是一个HTML元素');
+        //     return;
+        // }
     
         // 获取元素的所有属性
         var attrs = element.attributes;
@@ -237,10 +269,10 @@ class MainApp{
     //打印某个元素的 精简属性值
     printElementAttributesAsString_simple(element) {
         // 检查输入是否是一个元素
-        if (!(element instanceof Element)) {
-            console.error('输入必须是一个HTML元素');
-            return;
-        }
+        // if (!(element instanceof Element)) {
+        //     console.error('输入必须是一个HTML元素');
+        //     return;
+        // }
     
         // 获取元素的所有属性
         var attrs = element.attributes;
@@ -278,7 +310,7 @@ class MainApp{
     //添加监听
     addClickEventToInputs() {
         // 获取所有输入框元素
-        var inputElements = document.querySelectorAll(window.flag.toString());
+        var inputElements =this.getAllElementsOfType(window.flag.toArray());// document.querySelectorAll(window.flag.toString());
         //var inputElements = document.querySelectorAll('*');
         window.ele_length = inputElements.length;
         
@@ -858,15 +890,16 @@ var side_button_code = `
 
     <div id='yuananniu' class="yuananniu" title="开关">
         骚
-        <div class="dropdown-menu">
-            <div id="sao1" class="dropdown-item">元素浮窗开关</div>
-            <div id="sao2" class="dropdown-item">代码助手开关</div>
-            <div id="sao3" class="dropdown-item">信息浮窗开关</div>
-            <div id="sao4" class="dropdown-item">复制cookie</div>
-            <div id="sao5" class="dropdown-item">复制UA</div>
-            <div id="sao6" class="dropdown-item">刷新定位</div>
-            <div id="sao7" class="dropdown-item">指纹检测</div>
-            <div id="sao8" class="dropdown-item">视频解析</div>
+        <div class="sao-dropdown-menu">
+            <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
+            <div id="sao2" class="sao-dropdown-item">代码助手开关</div>
+            <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
+            <div id="sao4" class="sao-dropdown-item">复制cookie</div>
+            <div id="sao5" class="sao-dropdown-item">复制UA</div>
+            <div id="sao6" class="sao-dropdown-item">刷新定位</div>
+            <div id="sao7" class="sao-dropdown-item">指纹检测</div>
+            <div id="sao8" class="sao-dropdown-item">视频解析</div>
+            
         </div>
     </div>
 

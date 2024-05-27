@@ -143,71 +143,67 @@ ul {
     list-style-type: none;
     padding: 0;
 }
+
+/* 样式化圆形按钮 */
 .yuananniu {
-    position: relative;
+    position: relative; /* 相对定位 */
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    border: #b89595;
-    border-style:solid;
-    border-width: 3px;
-    cursor: pointer;
+    border-radius: 50%; /* 圆形边框 */
+    border: 3px solid #b89595; /* 边框样式 */
+    cursor: pointer; /* 鼠标悬停样式 */
     font-size: x-large;
-    /* font-weight: bold; */
-    color: rgb(189, 16, 16);
-    
-    background-color: rgba(211, 211, 211, 0.445);
-    display: flex;
-    /* 设置为flex布局 */
-    justify-content: center;
-    /* 水平居中 */
-    align-items: center;
-    /* 垂直居中 */
-}
-.yuananniu:hover {
-    transform: scale(1.2);
-    background-color: lightgray;
-    /* border: rgb(167, 19, 19); */
-    border-style:solid;
-    border-width: 3px;
+    color: rgb(189, 16, 16); /* 文字颜色 */
+    background-color: rgba(211, 211, 211, 0.445); /* 背景颜色 */
+    display: flex; /* 使用弹性盒布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
 }
 
-.dropdown-menu {
-    position: absolute;
-    z-index: 2000;
-    top: 100%;
-    left: 0;
+
+/* 下拉菜单样式 */
+.sao-dropdown-menu {
+    position: absolute; /* 绝对定位 */
+    z-index: 2000; /* 设置层级 */
+    top: 100%; /* 相对于父元素的底部对齐 */
+    left: 0; /* 相对于父元素的左侧对齐 */
     width: 120px;
-    background-color: #ffffff80;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.3s;
+    background-color: #ffffff80; /* 背景颜色及透明度 */
+    border: 1px solid #ccc; /* 边框样式 */
+    border-radius: 5px; /* 边框圆角 */
+    padding: 5px 0; /* 内边距 */
+    opacity: 0; /* 初始不透明度为0，隐藏 */
+    transition: opacity 0.3s; /* 渐变过渡效果 */
+    pointer-events: none; /* 确保下拉菜单在隐藏时不可点击 */
 }
 
-.yuananniu:hover .dropdown-menu {
-    visibility: visible;
-    opacity: 1;
-    z-index: 2000;
+/* 鼠标悬停时显示下拉菜单 */
+.yuananniu:hover .sao-dropdown-menu {
+    opacity: 1; /* 透明度为1，显示 */
+    pointer-events: auto; /* 在可见时启用指针事件 */
 }
 
-.dropdown-item {
-    padding: 5px 10px;
-    cursor: pointer;
-    /* transition: background-color 0.1s; */
-    font-size: small;
-    margin: 1px;
-    border-width: 1px;
+/* 下拉菜单项样式 */
+.sao-dropdown-item {
+    padding: 5px 10px; /* 内边距 */
+    cursor: pointer; /* 鼠标样式 */
+    font-size: small; /* 字体大小 */
+    margin: 1px; /* 外边距 */
+    border: 1px solid transparent; /* 边框样式 */
 }
 
-.dropdown-item:hover {
-    background-color:rgba(221, 146, 165, 0.349);
-    border-radius: 4px;
-    margin: 1px;
-    border-style: solid;
-    border-width: 1px;
+/* 鼠标悬停时下拉菜单项样式 */
+.sao-dropdown-item:hover {
+    background-color: rgba(221, 146, 165, 0.349); /* 背景颜色及透明度 */
+    border-radius: 4px; /* 边框圆角 */
+    border-color: rgba(221, 146, 165, 0.349); /* 边框颜色 */
+}
+
+/* 鼠标悬停样式 */
+.yuananniu:hover {
+    transform: scale(1.2); /* 放大效果 */
+    background-color: lightgray; /* 背景颜色变化 */
+    border: 3px solid rgb(167, 19, 19); /* 边框颜色变化 */
 }
 
 

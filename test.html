@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hover Effects</title>
+<style>
+/* 默认下拉菜单项样式 */
+.dropdown-item {
+    /* 你的默认样式 */
+}
+
+/* 默认悬停样式 */
+.yuananniu {
+    /* 你的默认样式 */
+}
+
+/* 鼠标悬停时下拉菜单项样式 */
+.dropdown-item:hover {
+    background-color: rgba(221, 146, 165, 0.349); /* 背景颜色及透明度 */
+    border-radius: 4px; /* 边框圆角 */
+    border-color: rgba(221, 146, 165, 0.349); /* 边框颜色 */
+}
+
+/* 鼠标悬停样式 */
+.yuananniu:hover {
+    transform: scale(1.2); /* 放大效果 */
+    background-color: lightgray; /* 背景颜色变化 */
+    border: 3px solid rgb(167, 19, 19); /* 边框颜色变化 */
+}
+</style>
+</head>
+<body>
+
+<!-- 示例下拉菜单项 -->
+<div class="dropdown-item">Dropdown Item 1</div>
+<div class="dropdown-item">Dropdown Item 2</div>
+<div class="dropdown-item">Dropdown Item 3</div>
+
+<!-- 示例按钮 -->
+<button class="yuananniu">Button</button>
+
+<script>
+function addHoverEffect(selector, hoverStyles) {
+    var elements = document.querySelectorAll(selector);
+    elements.forEach(function(element) {
+        element.addEventListener('mouseenter', function() {
+            for (var style in hoverStyles) {
+                if (hoverStyles.hasOwnProperty(style)) {
+                    element.style[style] = hoverStyles[style];
+                }
+            }
+        });
+        element.addEventListener('mouseleave', function() {
+            for (var style in hoverStyles) {
+                if (hoverStyles.hasOwnProperty(style)) {
+                    element.style[style] = '';
+                }
+            }
+        });
+    });
+}
+
+// 添加下拉菜单项的悬停效果
+addHoverEffect('.dropdown-item', {
+    backgroundColor: 'rgba(221, 146, 165, 0.349)',
+    borderRadius: '4px',
+    borderColor: 'rgba(221, 146, 165, 0.349)'
+});
+
+// 添加按钮的悬停效果
+addHoverEffect('.yuananniu', {
+    transform: 'scale(1.2)',
+    backgroundColor: 'lightgray',
+    border: '3px solid rgb(167, 19, 19)'
+});
+</script>
+
+</body>
+</html>
