@@ -153,7 +153,7 @@ ul {
     border: 3px solid #b89595; /* 边框样式 */
     cursor: pointer; /* 鼠标悬停样式 */
     font-size: x-large;
-    color: rgb(189, 16, 16); /* 文字颜色 */
+    color: rgb(167, 29, 52); /* 文字颜色 */
     background-color: rgba(211, 211, 211, 0.445); /* 背景颜色 */
     display: flex; /* 使用弹性盒布局 */
     justify-content: center; /* 水平居中 */
@@ -203,7 +203,7 @@ ul {
 .yuananniu:hover {
     transform: scale(1.2); /* 放大效果 */
     background-color: lightgray; /* 背景颜色变化 */
-    border: 3px solid rgb(167, 19, 19); /* 边框颜色变化 */
+    border: 3px solid rgb(145, 18, 18); /* 边框颜色变化 */
 }
 
 
