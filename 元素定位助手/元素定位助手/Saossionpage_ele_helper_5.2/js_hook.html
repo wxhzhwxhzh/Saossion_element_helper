@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js 逆向</title>
+    <link href="css/js_hook.css" rel="stylesheet">
+</head>
+<body>
+   <div id="main_tab">
+
+    <div class="yi_hang">
+
+        <a target="ghelper" href="http://g1879.gitee.io/drissionpagedocs/">
+            <img id="saologo" src="img/saoshen.png" ></a>
+        <h1 style="font-family: 黑体;color: rgb(43, 14, 172);">骚神-JS逆向助手 </h1>
+        
+
+        
+
+    </div>
+    <hr>
+   
+    <div class="tab-pane fade in active  biaoqianye" id="home" >
+        <p>JS逆向助手 1.0版本</p>
+        
+
+        <div class="yi_hang">
+            浏览器关联
+            <input type="radio" id="option1" name="options" value="option1" checked>
+            <label for="option1">自动选择</label>
+
+            <input type="radio" id="option2" name="options" value="option2">
+            <label for="option2">手动选择</label>
+
+            <input type="radio" id="option3" name="options" value="option3">
+            <label for="option3">指纹浏览器</label>
+
+
+        </div>
+
+        <div class="yi_hang">
+            <span class="label1">指定需要hook的全局变量名：</span>
+
+            <input id="set_browser" class="input_button1" type="text" placeholder="默认为空是本地谷歌浏览器"
+                style="width: 350px;">
+
+        </div>
+
+        <div class="yi_hang">
+            <span style="margin-right: 15px;">启动前设置</span>
+
+
+            <input type="checkbox" id="wutou" name="checkbox" value="check1">
+            <label for="check1">无头</label>
+
+
+            <input type="checkbox" id="jingyin" name="checkbox" value="check2">
+            <label for="check2">静音</label>
+
+
+            <input type="checkbox" id="duokai" name="checkbox" value="check3">
+            <label for="check3">多开</label>
+
+            <input type="checkbox" id="hulue" name="checkbox" value="check4">
+            <label for="check4">忽略证书错误</label>
+
+            <input type="checkbox" id="nojs" name="checkbox" value="check5">
+            <label for="check5">无JS</label>
+
+        </div>
+
+        <div class="yi_hang">
+            <span class="label1">全局变量劫持</span>
+
+            <select id="ua">
+                <option value="option1">Window</option>
+                <option value="option2">document</option>
+                <option value="option3">navigator</option>
+            </select>
+
+        </div>
+
+        <div class="yi_hang">
+            <span class="label1">代理地址</span>
+
+            <input id="set_proxy" class="input_button1" type="text" placeholder="http://ip:port">
+
+        </div>
+        <div class="yi_hang">
+            <span class="label1">设置Cookie</span>
+
+            <input id="set_cookie" class="input_button1" type="text"
+                placeholder="格式是 name1=value1; name2=value2; path=/; domain=.example.com">
+
+        </div>
+
+        <div class="yi_hang">
+            <span class="label1">启动端口</span>
+
+            <input id="set_port" class="input_button1" type="text" placeholder="默认端口是9222"
+                style="width: 150px;">
+
+        </div>
+
+        <div class="yi_hang">
+            <span class="label1">启动网址</span>
+
+            <input id="set_url" class="input_button1" type="text" placeholder="必须是http开头"
+                value="https://gitee.com/g1879/DrissionPage">
+
+        </div>
+
+
+      
+        <hr>
+
+
+        <button id="shengcheng" class="start_button" type="button">生成启动代码</button>
+        <button id="show_config" class="start_button" type="button">预览配置</button>
+        <button id="reset_config" class="start_button" type="button"
+            style="background-color: crimson;">重置</button>
+
+        <button id="copy_code" class="red_button" type="button"
+            style="background-color:rgb(12, 150, 120);">复制下面的代码</button>
+
+        <br>
+
+
+        <textarea id="wenben" rows="20" placeholder="文本框" style="font-family:consolas;">空的</textarea>
+
+
+    </div>
+    <script src="js/js_hook.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+
+body {
+    display: flex;
+    /* justify-content: center; */
+    /* 居中 */
+    align-items: center;
+    /* 垂直排列 */
+    flex-direction: column;
+    background-color: rgba(143, 142, 142, 0.767);
+    
+  }
+
+#main_tab{
+    width: 80%;
+    font-family: Jetbrains mono;
+    font-size: 14px;
+        
+}
+
+.yi_hang{
+    display: flex;
+    
+    flex-direction:row;
+    padding-top: 10px;
+    padding-left: 2px;
+    /* 外边距 */
+    margin-left: 5px;   
+}
+
+#saologo{
+    height: 60px;
+}
+
+#wenben{
+    width: 100%;
+    font-family: fira code, monospace;
+    background-color: #333;
+    color: rgb(243, 245, 243);
+}
+
+
+/* 按钮特效 */
+.start_button {
+    padding: 8px 5px;
+    background-color: #51ac54;
+    color: white;
+    /* border: none; */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .start_button:hover {
+    background-color: #0fac17;
+    color: white;
+    /* border: 10px; */
+    border-color: rgb(241, 83, 44);
+  }
+
+
+.red_button {
+    padding: 8px 5px;
+    background-color: #ee5214;
+    color: white;
+    /* border: none; */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .red_button:hover {
+    background-color: #0fac17;
+    color: white;
+    /* border: 10px; */
+    border-color: rgb(241, 83, 44);
+  }
+
+
+/* 美化输入框 */
+.input_button1 {
+  padding: 5px;
+  width: 300px;
+  border: 2px solid #163f5a;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #333;
+  transition: border-color 0.3s; /* 添加过渡效果 */
+
+}
+
+
+.input_button1:hover {
+  border-color: #e74c3c; /* 鼠标悬浮时改变边框颜色 */
+}
+
+
+/* 美化label 文字 */
+
+.label1{
+  margin:2px 10px 2px 1px;
+}

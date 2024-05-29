@@ -856,7 +856,8 @@ class MainApp{
     console.log(overlay.pluginId);
     // 设置遮罩层内嵌的网页
     overlay.setInnerHtml(overlay.iframeInnerText);
-    // overlay.setShow();
+    
+
 
     // 创建遮罩层对象
     var overlay2 = new OverlayElement('overlay2');
@@ -924,7 +925,8 @@ var side_button_code = `
     });
 
     $('#sao2').click(function() {
-        overlay.setIframeSrc(chrome.runtime.getURL('code_helper.html'));
+       
+
         overlay.switch_show_hide();
     });
 
@@ -1055,6 +1057,8 @@ function configureFloatingWindow(floatingWindow, titleBar, closeBtn) {
     });
 
     closeBtn.click();
+
+    
 
 
    
