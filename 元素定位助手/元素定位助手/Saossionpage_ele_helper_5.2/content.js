@@ -782,16 +782,15 @@ class MainApp{
             this.iframeSrc=chrome.runtime.getURL('code_helper.html');
             // 设置遮罩层内嵌的网页
             this.iframeInnerText=`
-            <div><iframe id="code_helper" src="${this.iframeSrc}" width="900" height="700" frameborder="0"></iframe></div>
+            <iframe id="code_helper" src="${this.iframeSrc}" width="900" height="100%" frameborder="0"></iframe>
+            `;
+            this.iframeInnerText2=`
+            <iframe id="code_helper" src="https://drissionpage.cn/search" width="900" height="100%" frameborder="0" style="float: left;"></iframe>
             `;
       
-            // 设置遮罩层内嵌的div
-            this.divInnerText=`
-            <div id="new_div" style="background-color: #ffffff; width: 900px; height: 700px; overflow-y: scroll; padding: 20px;font-size: 12px;">☑️资源列表<hr></div>
-
-            `;
+   
       
-            // alert(this.iframeSrc);
+            
         }
     
         // 设置默认样式
@@ -805,8 +804,8 @@ class MainApp{
                 width: '100%',
                 height: '100%',
                 zIndex: 1999,
-                justifyContent: 'center',
-                alignItems: 'center'
+                // justifyContent: 'center',
+                // alignItems: 'center'
             });
         }
     
@@ -822,13 +821,15 @@ class MainApp{
     
         // 切换显示/隐藏状态
         switch_show_hide() {
-            this.element.style.display = this.element.style.display === 'none' ? 'flex' : 'none';
+            // this.element.style.display = this.element.style.display === 'none' ? 'flex' : 'none';        
+
+            // $(this.element).slideToggle("slow");
+            $(this.element).toggle('slide', {direction: 'left'}, 600); //需要加载jQuery-ui库
 
         }
     
         // 设置内部 HTML 内容
-        setInnerHtml(txt) {
-            
+        setInnerHtml(txt) {           
 
             this.element.innerHTML =txt;
         }
@@ -837,6 +838,12 @@ class MainApp{
         setOnClick(func) {
             // 给遮罩层添加点击事件处理函数
             this.element.onclick = func;
+        }
+        setIframeSrc(src){
+            this.iframeInnerText=`
+            <iframe id="code_helper" src="${src}" width="900" height="100%" frameborder="0"></iframe>
+            `;
+            this.element.innerHTML =this.iframeInnerText;
         }
     }
     
@@ -853,7 +860,7 @@ class MainApp{
 
     // 创建遮罩层对象
     var overlay2 = new OverlayElement('overlay2');
-    overlay2.setInnerHtml(overlay2.divInnerText);
+    overlay2.setIframeSrc('https://drissionpage.cn/search');
     
 
    
@@ -892,13 +899,14 @@ var side_button_code = `
         骚
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
-            <div id="sao2" class="sao-dropdown-item">代码助手开关</div>
+            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
             <div id="sao4" class="sao-dropdown-item">复制cookie</div>
             <div id="sao5" class="sao-dropdown-item">复制UA</div>
             <div id="sao6" class="sao-dropdown-item">刷新定位</div>
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             <div id="sao8" class="sao-dropdown-item">视频解析</div>
+            <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
             
         </div>
     </div>
@@ -908,44 +916,51 @@ var side_button_code = `
     var side_button=document.createElement('div');
     side_button.id='cebianlan';
     side_button.innerHTML=side_button_code;
+
     document.body.appendChild(side_button);
 
-    document.getElementById('sao1').addEventListener('click',()=>{
+    $('#sao1').click(function() {
         info_show_switch();
     });
-    document.getElementById('sao2').addEventListener('click',()=>{
+
+    $('#sao2').click(function() {
+        overlay.setIframeSrc(chrome.runtime.getURL('code_helper.html'));
         overlay.switch_show_hide();
     });
 
-    document.getElementById('sao3').addEventListener('click', () => {
-        let xuanfu_chuang = document.getElementById('floatingWindow');
-        if (xuanfu_chuang.style.display === 'none') {
-            xuanfu_chuang.style.display = 'block';
-        } else {
-            xuanfu_chuang.style.display = 'none';
-        }
+    $('#sao3').click(function() {
+        let xuanfu_chuang = $('#floatingWindow');
+        xuanfu_chuang.toggle();
     });
 
-    document.getElementById('sao4').addEventListener('click',()=>{
+    $('#sao4').click(function() {
         main_app.copyToClipboard(document.cookie);
-        alert('网页的cookie已经复制到剪贴板 \n'+document.cookie);
+        alert('网页的cookie已经复制到剪贴板 \n' + document.cookie);
     });
 
-    document.getElementById('sao5').addEventListener('click',()=>{
+    $('#sao5').click(function() {
         main_app.copyToClipboard(navigator.userAgent);
-        alert('网页的UA已经复制到剪贴板 \n'+navigator.userAgent);  
+        alert('网页的UA已经复制到剪贴板 \n' + navigator.userAgent);
     });
 
-    document.getElementById('sao6').addEventListener('click',()=>{
-         main_app.addClickEventToInputs();
-        alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!'); 
+    $('#sao6').click(function() {
+        main_app.addClickEventToInputs();
+        alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
     });
-    document.getElementById('sao7').addEventListener('click',()=>{
-        window.open("https://ip77.net/", "_blank"); 
+
+    $('#sao7').click(function() {
+        window.open("https://ip77.net/", "_blank");
     });
-    document.getElementById('sao8').addEventListener('click',()=>{
-        window.open("https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html", "_blank"); 
+
+    $('#sao8').click(function() {
+        window.open("https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html", "_blank");
+      
     });
+    
+    $('#sao9').click(function() {        
+        overlay2.switch_show_hide();
+    });
+    
 
 
 
