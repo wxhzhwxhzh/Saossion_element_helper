@@ -862,6 +862,9 @@ class MainApp{
     // 创建遮罩层对象
     var overlay2 = new OverlayElement('overlay2');
     overlay2.setIframeSrc('https://drissionpage.cn/search');
+    // 创建遮罩层对象
+    var overlay3 = new OverlayElement('overlay3');
+    overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
     
 
    
@@ -908,6 +911,8 @@ var side_button_code = `
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             <div id="sao8" class="sao-dropdown-item">视频解析</div>
             <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
+            <div id="sao10" class="sao-dropdown-item">逆向JS</div>
+            <div id="sao11" class="sao-dropdown-item">代码录制(beta)</div>
             
         </div>
     </div>
@@ -924,8 +929,7 @@ var side_button_code = `
         info_show_switch();
     });
 
-    $('#sao2').click(function() {
-       
+    $('#sao2').click(function() {       
 
         overlay.switch_show_hide();
     });
@@ -963,14 +967,20 @@ var side_button_code = `
         overlay2.switch_show_hide();
     });
     
+    $('#sao10').click(function() {        
+        overlay3.switch_show_hide();
+    });
+    
 
 
 
 
     
-    // 变成可拖拽的按钮
+    // 变成可拖拽的按钮  对话框的浮窗
     $(function() {
         $("#yuananniu").draggable();
+        $( "#floatingWindow" ).draggable();
+
       });
       
       
@@ -996,6 +1006,12 @@ function setupFloatingWindow() {
     
     // 添加关闭按钮到标题栏
     titleBar.appendChild(closeBtn);
+    //点击x  隐藏界面
+    $(closeBtn).click(function() {
+        $(floatingWindow).css('display', 'none');
+      });
+      
+
     
     // 创建内容区域
     var content = document.createElement("div");
@@ -1013,7 +1029,7 @@ function setupFloatingWindow() {
     document.body.appendChild(floatingWindow);
     
     // 配置悬浮窗
-    configureFloatingWindow(floatingWindow, titleBar, closeBtn);
+    // configureFloatingWindow(floatingWindow, titleBar, closeBtn);
 }
 
 // 配置悬浮窗
