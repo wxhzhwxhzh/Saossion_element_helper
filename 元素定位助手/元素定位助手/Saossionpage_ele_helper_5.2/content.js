@@ -867,7 +867,8 @@ class MainApp{
     overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
 
     var overlay4 = new OverlayElement('overlay4');
-    overlay4.setIframeSrc('https://free1.gptchinese.app/chat/new');
+    // overlay4.setIframeSrc('https://free1.gptchinese.app/chat/new');
+    overlay4.setIframeSrc(chrome.runtime.getURL('AI.html'));
     
 
    
