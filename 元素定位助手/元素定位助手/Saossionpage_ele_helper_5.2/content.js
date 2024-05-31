@@ -865,6 +865,9 @@ class MainApp{
     // 创建遮罩层对象
     var overlay3 = new OverlayElement('overlay3');
     overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
+
+    var overlay4 = new OverlayElement('overlay4');
+    overlay4.setIframeSrc('https://free1.gptchinese.app/chat/new');
     
 
    
@@ -912,7 +915,7 @@ var side_button_code = `
             <div id="sao8" class="sao-dropdown-item">视频解析</div>
             <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
             <div id="sao10" class="sao-dropdown-item">逆向JS</div>
-            <div id="sao11" class="sao-dropdown-item">代码录制(beta)</div>
+            <div id="sao11" class="sao-dropdown-item">AI解答</div>
             
         </div>
     </div>
@@ -970,6 +973,9 @@ var side_button_code = `
     $('#sao10').click(function() {        
         overlay3.switch_show_hide();
     });
+    $('#sao11').click(function() {        
+        overlay4.switch_show_hide();
+    });
     
 
 
@@ -980,6 +986,7 @@ var side_button_code = `
     $(function() {
         $("#yuananniu").draggable();
         $( "#floatingWindow" ).draggable();
+        
 
       });
       
@@ -1018,7 +1025,10 @@ function setupFloatingWindow() {
     content.id='float_content';
     content.classList.add("content");
     content.textContent = "浮窗内容";
+
     content.textContent=window.info;
+    //文本可以被选择
+    $(content).css("user-select", "text");
     
     
     // 将标题栏和内容区域添加到浮窗
@@ -1026,7 +1036,9 @@ function setupFloatingWindow() {
     floatingWindow.appendChild(content);
     
     // 将浮窗添加到body中
+    $(floatingWindow).css('display', 'none');
     document.body.appendChild(floatingWindow);
+    
     
     // 配置悬浮窗
     // configureFloatingWindow(floatingWindow, titleBar, closeBtn);
