@@ -187,7 +187,7 @@ ul {
 .sao-dropdown-item {
     padding: 5px 10px; /* 内边距 */
     cursor: pointer; /* 鼠标样式 */
-    font-size: small; /* 字体大小 */
+    font-size: xx-small; /* 字体大小 */
     margin: 1px; /* 外边距 */
     border: 1px solid transparent; /* 边框样式 */
 }
