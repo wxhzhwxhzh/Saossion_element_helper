@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI搜索询问</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <style>
         body{
             background-color: rgba(241, 241, 236, 0.075);
@@ -29,18 +30,11 @@
 <body>
 
 <div id="iframeContainer">
-    <!-- <iframe src="https://kimi.moonshot.cn/" frameborder="0"></iframe> -->
+    
     <iframe src="https://free1.gptchinese.app/chat/new" frameborder="0"></iframe>
 </div>
 
-<script>
-    // 当窗口大小改变时重新计算高度
-    window.addEventListener('resize', function() {
-        var windowHeight = window.innerHeight;
-        var iframeContainer = document.getElementById('iframeContainer');
-        iframeContainer.style.height = (windowHeight * 0.8) + 'px';
-    });
-</script>
+<script src="js/AI.js"></script>
 
 </body>
 </html>

@@ -916,7 +916,7 @@ var side_button_code = `
             <div id="sao8" class="sao-dropdown-item">视频解析</div>
             <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
             <div id="sao10" class="sao-dropdown-item">逆向JS</div>
-            <div id="sao11" class="sao-dropdown-item">AI解答</div>
+            <div id="sao11" class="sao-dropdown-item">AI 解答</div>
             
         </div>
     </div>
@@ -992,110 +992,50 @@ var side_button_code = `
       });
       
       
-
 // 创建和配置悬浮窗
 function setupFloatingWindow() {
     // 创建悬浮窗
-    var floatingWindow = document.createElement("div");
-    floatingWindow.classList.add("floating-window");
-    floatingWindow.id = "floatingWindow";
-    
+    var $floatingWindow = $('<div>', {
+        class: 'floating-window',
+        id: 'floatingWindow'
+    });
+
     // 创建标题栏
-    var titleBar = document.createElement("div");
-    titleBar.classList.add("title-bar");
-    titleBar.id = "titleBar";
-    titleBar.textContent = "信息浮窗(可拖动)";
-    
+    var $titleBar = $('<div>', {
+        class: 'title-bar',
+        id: 'titleBar',
+        text: '信息浮窗(可拖动)'
+    });
+
     // 创建关闭按钮
-    var closeBtn = document.createElement("span");
-    closeBtn.classList.add("close-btn");
-    closeBtn.id = "closeBtn";
-    closeBtn.innerHTML = "&nbsp;&nbsp;X";
-    
+    var $closeBtn = $('<span>', {
+        class: 'close-btn',
+        id: 'closeBtn',
+        html: '&nbsp;&nbsp;X'
+    });
+
     // 添加关闭按钮到标题栏
-    titleBar.appendChild(closeBtn);
-    //点击x  隐藏界面
-    $(closeBtn).click(function() {
-        $(floatingWindow).css('display', 'none');
-      });
-      
+    $titleBar.append($closeBtn);
 
-    
+    // 点击关闭按钮隐藏浮窗
+    $closeBtn.on('click', function() {
+        $floatingWindow.hide();
+    });
+
     // 创建内容区域
-    var content = document.createElement("div");
-    content.id='float_content';
-    content.classList.add("content");
-    content.textContent = "浮窗内容";
+    var $content = $('<div>', {
+        id: 'float_content',
+        class: 'content',
+        text: window.info // 从 window.info 获取内容
+    }).css("user-select", "text");
 
-    content.textContent=window.info;
-    //文本可以被选择
-    $(content).css("user-select", "text");
-    
-    
     // 将标题栏和内容区域添加到浮窗
-    floatingWindow.appendChild(titleBar);
-    floatingWindow.appendChild(content);
-    
+    $floatingWindow.append($titleBar).append($content);
+
     // 将浮窗添加到body中
-    $(floatingWindow).css('display', 'none');
-    document.body.appendChild(floatingWindow);
-    
-    
-    // 配置悬浮窗
-    // configureFloatingWindow(floatingWindow, titleBar, closeBtn);
+    $floatingWindow.hide().appendTo('body');
 }
 
-// 配置悬浮窗
-function configureFloatingWindow(floatingWindow, titleBar, closeBtn) {
-    // 初始化鼠标位置变量
-    var offsetX, offsetY;
-
-    // 鼠标按下事件监听器
-    titleBar.addEventListener('mousedown', function(e) {
-        // 计算鼠标相对于浮窗左上角的偏移量
-        offsetX = e.clientX - floatingWindow.offsetLeft;
-        offsetY = e.clientY - floatingWindow.offsetTop;
-
-        // 添加鼠标移动和鼠标释放事件监听器
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-    });
-
-    // 鼠标移动事件处理函数
-    function onMouseMove(e) {
-        // 计算浮窗的新位置
-        var newX = e.clientX - offsetX;
-        var newY = e.clientY - offsetY;
-
-        // 更新浮窗的位置
-        floatingWindow.style.left = newX + 'px';
-        floatingWindow.style.top = newY + 'px';
-    }
-
-    // 鼠标释放事件处理函数
-    function onMouseUp() {
-        // 移除鼠标移动和鼠标释放事件监听器
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-    }
-
-    // 关闭按钮点击事件监听器
-    closeBtn.addEventListener('click', function() {
-        // 隐藏浮窗
-        floatingWindow.style.display = 'none';
-    });
-
-    closeBtn.click();
-
-    
-
-
-   
-
-
-
-
-}
 
 
 
