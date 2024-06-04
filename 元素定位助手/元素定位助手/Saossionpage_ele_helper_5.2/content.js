@@ -98,6 +98,7 @@ class MainApp{
         //-----------------------悬浮时的背景颜色
 
         this.element_hover_color = 'rgba(250, 0, 0, 0.1)';
+        var self=this;
 
         window.flag_value = ['a', 'li', 'img', 'input', 'button'];
 
@@ -105,7 +106,7 @@ class MainApp{
 
         this.createNavbar();//调用函数创建导航栏  默认隐藏
         this.toggleDiv();
-        this.addClickEventToInputs(); //初次加载 调用一次解析函数
+        
 
         document.getElementById("daohanglan").addEventListener("click", function () {   // ----------------监听导航栏 进行位置变换
             togglePosition();
@@ -131,7 +132,7 @@ class MainApp{
             // 检查是否按下了f9键（keyCode为120）  
             if (event.keyCode === 120) {
                 // 打印当前网页标题
-                self.addClickEventToInputs();
+                
                 alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
             }
         
@@ -159,16 +160,7 @@ class MainApp{
         // 在当前文档中查找指定类型的元素
         findElementsInDocument(document);
     
-        // // 遍历当前网页中的所有 iframe 元素
-        // Array.from(document.querySelectorAll('iframe')).forEach(function(iframe) {
-        //     try {
-        //         var iframeDocument = iframe.contentWindow.document;
-        //         // 在 iframe 中查找指定类型的元素
-        //         findElementsInDocument(iframeDocument);
-        //     } catch (error) {
-        //         console.error('Error accessing iframe content:', error);
-        //     }
-        // });
+
     
         return elements;
     }
@@ -307,77 +299,62 @@ class MainApp{
     }
 
      
-    //添加监听
-    addClickEventToInputs() {
-        // 获取所有输入框元素
-        var inputElements =this.getAllElementsOfType(window.flag.toArray());// document.querySelectorAll(window.flag.toString());
-        //var inputElements = document.querySelectorAll('*');
-        window.ele_length = inputElements.length;
-        
-        // 把定位为元素数 发送给右键菜单
-        chrome.runtime.sendMessage({ele_count: window.ele_length});
-        
+   
+    // 提取某个元素的属性信息
+    extract_attri_info_to_div(inputElement) {
         // 暂存元素定位信息
         let info = "";
-        var theEle = {style: {},elementRect: {left: 0, top: 0}};
-        var self=this;
-    
-        // 为每个输入框元素添加点击事件监听器
-        inputElements.forEach(function (inputElement) {
-            // 添加鼠标经过事件监听器
-            inputElement.addEventListener('mouseover', function (event) {
-                // 如果当前元素已经高亮，则取消高亮
-                if ('backgroundColor' in theEle.style && theEle.style.backgroundColor ==self.element_hover_color){   
-                    theEle.style.backgroundColor = '';
-                    theEle.style.border ='';
-                    // delete theEle.style; // 这句没效果
-                }
-                // 经过元素时给元素加个高亮
-                this.style.backgroundColor = self.element_hover_color;
-                 // 修改元素的边框样式
-                this.style.border = "";
-                // 暂存当前元素
-                theEle = this;
-    
-                // 以下是获取元素定位语法功能
-                var attrib_info =self.printElementAttributesAsString(inputElement);
-                var attrib_info_simple =self.printElementAttributesAsString_simple(inputElement);
-    
-                var Name = "tag:" + inputElement.tagName.toLowerCase();
-    
-                var text = inputElement.innerText;
-                
-                
-                if (self.isBlankString(text)) {
-                    text = "";
-                } else {
-                    
-                    if (text.length <= 15) text = "@@text()=" + text;
-                    else text = "@@text()^" + text.slice(0,10);
-                    
-                }
-                
-                window.XPath_info="xpath:"+self.getElementXPath(inputElement);
-                
-                window.anotherGlobalVar = Name + attrib_info + text; 
-                window.anotherGlobalVar_simple = Name + attrib_info_simple;
-                
-    
-                window.info ="<b>🔹按alt+1 复制XPath--></b>@@"+window.XPath_info+"<hr>"+ "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--> </b>@@" + Name + attrib_info + text;
-                
-    
-                
-      
-    
-            });
-    
-        });
-          
-            
+        var theEle = { style: {}, elementRect: { left: 0, top: 0 } };
+
+        // inputElement.addEventListener('mouseover', function() { this.style.backgroundColor ='';this.style.fontWeight = 'bold';});
+        // inputElement.addEventListener('mouseout', function() { this.style.backgroundColor ='';this.style.fontWeight = 'normal';});
+
+
+       
+        // 暂存当前元素
+        theEle = this;
+        let self=this;
+
+        // 以下是获取元素定位语法功能
+        var attrib_info = self.printElementAttributesAsString(inputElement);
+        var attrib_info_simple = self.printElementAttributesAsString_simple(inputElement);
+
+        var Name = "tag:" + inputElement.tagName.toLowerCase();
+
+        var text = inputElement.innerText;
+
+
+        if (self.isBlankString(text)) {
+            text = "";
+        } else {
+
+            if (text.length <= 15) text = "@@text()=" + text;
+            else text = "@@text()^" + text.slice(0, 10);
+
+        }
+
+        window.XPath_info = "xpath:" + self.getElementXPath(inputElement);
+
+        window.anotherGlobalVar = Name + attrib_info + text;
+        window.anotherGlobalVar_simple = Name + attrib_info_simple;
+
+        window.info = "<b>🔹按alt+1 复制XPath--></b>@@" + window.XPath_info + "<hr>" + "<b>🔹按F2复制精简语法 <br>🔹按F8复制完整语法--> </b>@@" + Name + attrib_info + text;
+
+
     }
+
     //------------监听鼠标移动
     listen_for_mousemove(){
+        let self=this;
         document.addEventListener('mousemove', function(event) {
+            //提取信息
+            var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
+           
+            self.extract_attri_info_to_div(hoveredElement);
+            
+
+            
+
     
        
             // 边缘碰撞检测
@@ -432,13 +409,12 @@ class MainApp{
             // xyInfoEle = "元素内坐标 x:"+eleX+",y:"+eleY+"<hr>";
         
             // 将坐标信息、定位语法 显示到页面上 
-            var F9_info='🔹按F9 刷新定位'+" 当前定位数:"+window.ele_length+"<hr>";              
+            var F9_info='🔹按F9 刷新定位'+"<hr>";              
             
         
             document.getElementById('show').textContent = xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
 
-            // document.getElementById('float_content').textContent=xyInfoDoc1+xyInfoDoc2 + F9_info + window.info;
-            // this.format_the_text('float_content');
+
 
 
             // 获取包含文本的 span 元素
@@ -954,7 +930,7 @@ var side_button_code = `
     });
 
     $('#sao6').click(function() {
-        main_app.addClickEventToInputs();
+        
         alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
     });
 
