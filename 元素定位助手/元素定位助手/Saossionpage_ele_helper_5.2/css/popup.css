@@ -2,10 +2,11 @@
 
 /* 整体样式 */
 body {
-    background: #5396e2a9;
+    background: #9d9ea0a9;
     width:280px;
     height:350px;
     padding: 5px;
+    border-radius: 10px;
 
 
     

@@ -89,8 +89,7 @@ class Flag {
 }
 
 
-// 调用函数设置悬浮窗
-setupFloatingWindow();
+
 
 //----------封装主函数
 class MainApp{
@@ -111,6 +110,7 @@ class MainApp{
         document.getElementById("daohanglan").addEventListener("click", function () {   // ----------------监听导航栏 进行位置变换
             togglePosition();
         });
+        
 
         this.listen_for_mousemove(); //监听鼠标移动
         var self=this;
@@ -210,10 +210,15 @@ class MainApp{
         
     // -------------------------------工具函数
     
-      //检查字符串是否为空
+    // 是否是空字符
     isBlankString(str) {
-        return str.trim().length === 0;
+        if (str && typeof str === 'string') {
+            return str.trim().length === 0;
+        } else {
+            return true;  // 将空值、null 和 undefined 视为“空字符串”
+        }
     }
+    
     // 检查是否包含特殊字符 
     containsString(str) {
         return str.includes('href') || str.includes('src');
@@ -221,17 +226,18 @@ class MainApp{
     
     //打印某个元素的所有属性值
     printElementAttributesAsString(element) {
+        // 初始化一个空字符串用于存储属性
+        var attributesString = '';
+
         // 检查输入是否是一个元素
-        // if (!(element instanceof Element)) {
-        //     console.error('输入必须是一个HTML元素');
-        //     return;
-        // }
+        if (!(element instanceof Element)) {
+            // console.error('输入必须是一个HTML元素');
+            return '当前位置无法解析元素';
+        }
     
         // 获取元素的所有属性
         var attrs = element.attributes;
     
-        // 初始化一个空字符串用于存储属性
-        var attributesString = '';
     
         // 遍历所有属性并将它们的名称和值拼接到字符串中
         for (var i = 0; i < attrs.length; i++) {
@@ -310,6 +316,7 @@ class MainApp{
         // inputElement.addEventListener('mouseout', function() { this.style.backgroundColor ='';this.style.fontWeight = 'normal';});
 
 
+
        
         // 暂存当前元素
         theEle = this;
@@ -349,13 +356,11 @@ class MainApp{
         document.addEventListener('mousemove', function(event) {
             //提取信息
             var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
-           
+            
+
             self.extract_attri_info_to_div(hoveredElement);
             
 
-            
-
-    
        
             // 边缘碰撞检测
         
@@ -429,6 +434,9 @@ class MainApp{
             // 创建一个新的文本内容
             let newContent = '';
             lines.forEach(function(line, index) {
+                if (line.includes('tag')) {
+                    line = 'tag:<span style="color:black"><b>' + line.split(':')[1] + '</b></span>';
+                }
                 // 添加换行符
                 if (index > 0) {
                     newContent += '<br>';
@@ -440,10 +448,8 @@ class MainApp{
             // 更新 span 元素的内容为新的文本内容
             spanElement.innerHTML = newContent;
 
-            let xuanfu = document.getElementById('float_content');
-            if (xuanfu) {
-            xuanfu.innerHTML = "<pre><code>" + newContent + "</code></pre>";
-            }
+            
+            
 
         });
         
@@ -838,9 +844,10 @@ class MainApp{
     // 创建遮罩层对象
     var overlay2 = new OverlayElement('overlay2');
     overlay2.setIframeSrc('https://drissionpage.cn/search');
+
     // 创建遮罩层对象
-    var overlay3 = new OverlayElement('overlay3');
-    overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
+    // var overlay3 = new OverlayElement('overlay3');
+    // overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
 
     var overlay4 = new OverlayElement('overlay4');
     // overlay4.setIframeSrc('https://free1.gptchinese.app/chat/new');
@@ -887,12 +894,12 @@ var side_button_code = `
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
             <div id="sao4" class="sao-dropdown-item">复制cookie</div>
             <div id="sao5" class="sao-dropdown-item">复制UA</div>
-            <div id="sao6" class="sao-dropdown-item">刷新定位</div>
+            
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             <div id="sao8" class="sao-dropdown-item">视频解析</div>
             <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
-            <div id="sao10" class="sao-dropdown-item">逆向JS</div>
-            <div id="sao11" class="sao-dropdown-item">AI 解答</div>
+            
+            <div id="sao11" class="sao-dropdown-item">ChatGPT</div>
             
         </div>
     </div>
@@ -929,10 +936,7 @@ var side_button_code = `
         alert('网页的UA已经复制到剪贴板 \n' + navigator.userAgent);
     });
 
-    $('#sao6').click(function() {
-        
-        alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
-    });
+
 
     $('#sao7').click(function() {
         window.open("https://ip77.net/", "_blank");
@@ -947,9 +951,7 @@ var side_button_code = `
         overlay2.switch_show_hide();
     });
     
-    $('#sao10').click(function() {        
-        overlay3.switch_show_hide();
-    });
+
     $('#sao11').click(function() {        
         overlay4.switch_show_hide();
     });
@@ -967,7 +969,8 @@ var side_button_code = `
 
       });
       
-      
+// 调用函数设置悬浮窗
+setupFloatingWindow();      
 // 创建和配置悬浮窗
 function setupFloatingWindow() {
     // 创建悬浮窗
@@ -998,19 +1001,24 @@ function setupFloatingWindow() {
         $floatingWindow.hide();
     });
 
-    // 创建内容区域
+   // 创建内容区域
     var $content = $('<div>', {
         id: 'float_content',
         class: 'content',
-        text: window.info // 从 window.info 获取内容
+        html: $('#daohanglan').html() // 使用html()方法获取元素的内容
     }).css("user-select", "text");
-
     // 将标题栏和内容区域添加到浮窗
     $floatingWindow.append($titleBar).append($content);
 
     // 将浮窗添加到body中
     $floatingWindow.hide().appendTo('body');
+    // 更新内容
+    setInterval(() => {
+        $('#float_content').html($('#daohanglan').html());
+    }, 300);
+    
 }
+
 
 
 
