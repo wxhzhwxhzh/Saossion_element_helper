@@ -314,6 +314,11 @@ class MainApp{
 
         // inputElement.addEventListener('mouseover', function() { this.style.backgroundColor ='';this.style.fontWeight = 'bold';});
         // inputElement.addEventListener('mouseout', function() { this.style.backgroundColor ='';this.style.fontWeight = 'normal';});
+        if (!(inputElement instanceof Element)) {
+            console.log('输入必须是一个HTML元素');
+            window.info='当前位置是非元素'
+            return ;
+        }
 
 
 
@@ -748,7 +753,7 @@ class MainApp{
     
     // ------------------遮罩层类
     class OverlayElement {
-        constructor(id) {
+        constructor(id,iframe_src) {
             // 创建遮罩层元素
             this.element = document.createElement('div');
             
@@ -763,16 +768,15 @@ class MainApp{
             this.pluginId=chrome.runtime.id;
             this.iframeSrc=chrome.runtime.getURL('code_helper.html');
             // 设置遮罩层内嵌的网页
-            this.iframeInnerText=`
-            <iframe id="code_helper" src="${this.iframeSrc}" width="900" height="100%" frameborder="0"></iframe>
-            `;
-            this.iframeInnerText2=`
-            <iframe id="code_helper" src="https://drissionpage.cn/search" width="900" height="100%" frameborder="0" style="float: left;"></iframe>
-            `;
-      
+            this.iframeID=id+'_iframe';
+            this.iframeInnerText = `
+            <div id="sao_f" style="height: 100%; width: 50%; position: fixed; border-radius: 10px;">
+                <iframe src="${iframe_src}" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+                `;
+        
+            this.isFisrtInit=true;          
    
-      
-            
         }
     
         // 设置默认样式
@@ -791,69 +795,45 @@ class MainApp{
             });
         }
     
-        // 显示遮罩层
-        setShow() {
-            this.element.style.display = 'flex'; 
-        }
-    
-        // 隐藏遮罩层
-        setHide() {
-            this.element.style.display = 'none'; 
-        }
-    
         // 切换显示/隐藏状态
         switch_show_hide() {
             // this.element.style.display = this.element.style.display === 'none' ? 'flex' : 'none';        
 
             // $(this.element).slideToggle("slow");
+            if(this.isFisrtInit){
+                this.element.innerHTML =this.iframeInnerText;
+                this.isFisrtInit=false;
+                 //iframe 可以自由缩放拖动   
+                $(function() { $('#sao_f').resizable();});
+            }
+            // console.log('first init ?'+this.isFisrtInit);
+
             $(this.element).toggle('slide', {direction: 'left'}, 600); //需要加载jQuery-ui库
 
         }
-    
-        // 设置内部 HTML 内容
-        setInnerHtml(txt) {           
 
-            this.element.innerHTML =txt;
-        }
-    
-        // 设置点击事件处理函数
-        setOnClick(func) {
-            // 给遮罩层添加点击事件处理函数
-            this.element.onclick = func;
-        }
-        setIframeSrc(src){
-            this.iframeInnerText=`
-            <iframe id="code_helper" src="${src}" width="900" height="100%" frameborder="0"></iframe>
-            `;
-            this.element.innerHTML =this.iframeInnerText;
-        }
+     
     }
     
     
     
     
     // 创建遮罩层对象
-    var overlay = new OverlayElement('overlay');
+    var overlay = new OverlayElement('overlay',chrome.runtime.getURL('code_helper.html'));
+    // overlay.setIframeSrc(chrome.runtime.getURL('code_helper.html'));
+    
+    
+    
+    // 创建遮罩层对象
+    var overlay2 = new OverlayElement('overlay2','https://drissionpage.cn/search');
+
+    
+    var overlay4 = new OverlayElement('overlay4',chrome.runtime.getURL('AI.html'));
+
+    var overlay5 = new OverlayElement('overlay5','https://wxhzhwxhzh.github.io/saossion_code_helper_online/jiaoxue/index.html');
+  
     // 输出插件的 ID
-    console.log(overlay.pluginId);
-    // 设置遮罩层内嵌的网页
-    overlay.setInnerHtml(overlay.iframeInnerText);
-    
-
-
-    // 创建遮罩层对象
-    var overlay2 = new OverlayElement('overlay2');
-    overlay2.setIframeSrc('https://drissionpage.cn/search');
-
-    // 创建遮罩层对象
-    // var overlay3 = new OverlayElement('overlay3');
-    // overlay3.setIframeSrc('https://wxhzhwxhzh.github.io/saossion_code_helper_online/hook/options.html');
-
-    var overlay4 = new OverlayElement('overlay4');
-    // overlay4.setIframeSrc('https://free1.gptchinese.app/chat/new');
-    overlay4.setIframeSrc(chrome.runtime.getURL('AI.html'));
-    
-
+    console.log(overlay.pluginId);   
    
     
     
@@ -890,14 +870,15 @@ var side_button_code = `
         骚
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
-            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
             <div id="sao4" class="sao-dropdown-item">复制cookie</div>
             <div id="sao5" class="sao-dropdown-item">复制UA</div>
-            
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
-            <div id="sao8" class="sao-dropdown-item">视频解析</div>
+            
+            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>
+            <div id="sao_video" class="sao-dropdown-item">视频解析</div>
             <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
+            <div id="sao10" class="sao-dropdown-item">实战代码教学</div>
             
             <div id="sao11" class="sao-dropdown-item">ChatGPT</div>
             
@@ -942,15 +923,19 @@ var side_button_code = `
         window.open("https://ip77.net/", "_blank");
     });
 
-    $('#sao8').click(function() {
-        window.open("https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html", "_blank");
+    $('#sao_video').click(function() {
+        overlay5.switch_show_hide();
       
     });
     
     $('#sao9').click(function() {        
         overlay2.switch_show_hide();
     });
-    
+
+    $('#sao10').click(function() {
+       overlay5.switch_show_hide();
+      
+    });
 
     $('#sao11').click(function() {        
         overlay4.switch_show_hide();
@@ -965,7 +950,7 @@ var side_button_code = `
     $(function() {
         $("#yuananniu").draggable();
         $( "#floatingWindow" ).draggable();
-        
+        $(".sao_iframe").resizable();
 
       });
       
