@@ -829,6 +829,7 @@ class MainApp{
 
     
     var overlay4 = new OverlayElement('overlay4',chrome.runtime.getURL('AI.html'));
+    var overlay3 = new OverlayElement('overlay3','https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html');
 
     var overlay5 = new OverlayElement('overlay5','https://wxhzhwxhzh.github.io/saossion_code_helper_online/jiaoxue/index.html');
   
@@ -924,7 +925,7 @@ var side_button_code = `
     });
 
     $('#sao_video').click(function() {
-        overlay5.switch_show_hide();
+        overlay3.switch_show_hide();
       
     });
     
