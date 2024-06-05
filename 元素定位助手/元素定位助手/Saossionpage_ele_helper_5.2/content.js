@@ -267,10 +267,10 @@ class MainApp{
     //打印某个元素的 精简属性值
     printElementAttributesAsString_simple(element) {
         // 检查输入是否是一个元素
-        // if (!(element instanceof Element)) {
-        //     console.error('输入必须是一个HTML元素');
-        //     return;
-        // }
+        if (!(element instanceof Element)) {
+            console.log('输入必须是一个HTML元素');
+            return '必须是一个HTML元素';
+        }
     
         // 获取元素的所有属性
         var attrs = element.attributes;
