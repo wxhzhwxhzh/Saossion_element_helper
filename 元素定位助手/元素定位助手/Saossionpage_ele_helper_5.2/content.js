@@ -105,15 +105,17 @@ class MainApp{
 
         this.createNavbar();//调用函数创建导航栏  默认隐藏
         this.toggleDiv();
+        // this.shijian_weituo();
         
-
-        document.getElementById("daohanglan").addEventListener("click", function () {   // ----------------监听导航栏 进行位置变换
+        // ----------------监听导航栏 进行位置变换
+        $('#daohanglan').on('click', function() {
             togglePosition();
         });
         
 
         this.listen_for_mousemove(); //监听鼠标移动
         var self=this;
+
 
         // 监听F2 F8  F9 按键  alt +1
         document.addEventListener('keydown', function(event) {
@@ -146,6 +148,31 @@ class MainApp{
     
 
     }
+
+    shijian_weituo(){
+        // 绑定mouseover事件处理程序到body元素，使用事件委托监测li、div、img、span和button元素的mouseover事件
+        var self=this;
+        document.querySelector('body').addEventListener('mouseover', function (event) {
+            if (event.target.tagName === 'INPUT') {
+                console.log('You hovered over an <input> tag');
+                self.extract_attri_info_to_div(event.target);
+            } else if (event.target.tagName === 'A') {
+                console.log('You hovered over a <div> tag');
+                self.extract_attri_info_to_div(event.target);
+            } else if (event.target.tagName === 'IMG') {
+                console.log('You hovered over a <div> tag');
+                self.extract_attri_info_to_div(event.target);
+            } else if (event.target.tagName === 'LI') {
+                console.log('You hovered over a <div> tag');
+                self.extract_attri_info_to_div(event.target);
+            }else if (event.target.tagName === 'DIV') {
+                console.log('You hovered over a <div> tag');
+                self.extract_attri_info_to_div(event.target);
+            }
+        });
+          
+         
+     }  
 
      getAllElementsOfType(types) {
         var elements = []; // 用于存放所有找到的指定类型的元素
@@ -355,10 +382,13 @@ class MainApp{
 
     }
 
+
+    
+
     //------------监听鼠标移动
     listen_for_mousemove(){
         let self=this;
-        document.addEventListener('mousemove', function(event) {
+        document.addEventListener('mouseover', function(event) {
             //提取信息
             var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
             
