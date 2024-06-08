@@ -113,39 +113,30 @@ class MainApp{
         });
         
 
-        this.listen_for_mousemove(); //监听鼠标移动
+        this.listen_mousemove_to_update_div(); //监听鼠标移动
         var self=this;
 
 
-        // 监听F2 F8  F9 按键  alt +1
-        document.addEventListener('keydown', function(event) {
-            // 检查是否按下了f8键（keyCode为18）
-            if (event.keyCode === 119) {
-                
-                self.extractInfoAndAlert();
-        
+        // 监听按键   F2 F8  F9  alt+1
+        $(document).keydown(function(event) {
+            switch (event.keyCode) {
+                case 119: // F8键
+                    self.extractInfoAndAlert();
+                    break;
+                case 113: // F2键
+                    self.extractInfoAndAlert_simple();
+                    break;
+                case 120: // F9键
+                    alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
+                    break;
+                case 49: // 数字键1
+                    if (event.altKey) {
+                        self.copyElementXPath();
+                    }
+                    break;
             }
-            // 检查是否按下了f2键
-            if (event.keyCode === 113) {
-              
-                self.extractInfoAndAlert_simple();
-        
-            }
-            // 检查是否按下了f9键（keyCode为120）  
-            if (event.keyCode === 120) {
-                // 打印当前网页标题
-                
-                alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
-            }
-        
-            if (event.altKey && (event.key === "1" || event.keyCode === 49)) {
-                
-                self.copyElementXPath();
-                
-            }
-        
         });
-    
+        
 
     }
 
@@ -334,7 +325,7 @@ class MainApp{
      
    
     // 提取某个元素的属性信息
-    extract_attri_info_to_div(inputElement) {
+     async extract_attri_info_to_div(inputElement) {
         // 暂存元素定位信息
         let info = "";
         var theEle = { style: {}, elementRect: { left: 0, top: 0 } };
@@ -382,18 +373,25 @@ class MainApp{
 
     }
 
-
-    
+ 
+  
+    sleep(ms) {
+        // 创建一个新的Promise对象，并将resolve作为回调函数传入
+        return new Promise(resolve => setTimeout(resolve, ms));
+      // 调用setTimeout函数，设置延迟时间为ms毫秒，延迟时间结束后调用resolve回调函数
+      }
 
     //------------监听鼠标移动
-    listen_for_mousemove(){
+     listen_mousemove_to_update_div(){
         let self=this;
-        document.addEventListener('mouseover', function(event) {
+        document.addEventListener('mousemove', async function(event) {
             //提取信息
             var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
             
 
-            self.extract_attri_info_to_div(hoveredElement);
+            // await self.sleep(1000);
+
+            await self.extract_attri_info_to_div(hoveredElement);
             
 
        
