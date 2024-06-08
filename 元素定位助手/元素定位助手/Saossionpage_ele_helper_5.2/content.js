@@ -55,38 +55,6 @@ class Config {
     }
 }
 
-// ----------------------flag 对象
-class Flag {
-    constructor() {
-        this.value = [];
-        this.reset();
-    }
-
-    reset() {
-        this.value = ['a', 'li', 'img', 'input', 'button'];
-    }
-
-    add(ele) {
-        this.value.push(ele);
-    }
-
-    clear() {
-        this.value = [];
-        return this;
-    }
-
-    set(arr) {
-        this.value = arr;
-    }
-
-    toString() {
-        return this.value.join(",");
-    }
-
-    toArray() {
-        return this.value.slice(); // 返回数组的副本，避免直接返回引用
-    }
-}
 
 
 
@@ -94,95 +62,48 @@ class Flag {
 //----------封装主函数
 class MainApp{
     constructor() {
-        //-----------------------悬浮时的背景颜色
-
-        this.element_hover_color = 'rgba(250, 0, 0, 0.1)';
-        var self=this;
-
-        window.flag_value = ['a', 'li', 'img', 'input', 'button'];
-
-        window.flag = new Flag();
-
-        this.createNavbar();//调用函数创建导航栏  默认隐藏
-        this.toggleDiv();
-        // this.shijian_weituo();
-        
-        // ----------------监听导航栏 进行位置变换
-        $('#daohanglan').on('click', function() {
-            togglePosition();
-        });
-        
-
-        this.listen_mousemove_to_update_div(); //监听鼠标移动
-        var self=this;
-
-
-        // 监听按键   F2 F8  F9  alt+1
-        $(document).keydown(function(event) {
-            switch (event.keyCode) {
-                case 119: // F8键
-                    self.extractInfoAndAlert();
-                    break;
-                case 113: // F2键
-                    self.extractInfoAndAlert_simple();
-                    break;
-                case 120: // F9键
-                    alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
-                    break;
-                case 49: // 数字键1
-                    if (event.altKey) {
-                        self.copyElementXPath();
-                    }
-                    break;
-            }
-        });
-        
+        this.init();
 
     }
 
-    shijian_weituo(){
-        // 绑定mouseover事件处理程序到body元素，使用事件委托监测li、div、img、span和button元素的mouseover事件
-        var self=this;
-        document.querySelector('body').addEventListener('mouseover', function (event) {
-            if (event.target.tagName === 'INPUT') {
-                console.log('You hovered over an <input> tag');
-                self.extract_attri_info_to_div(event.target);
-            } else if (event.target.tagName === 'A') {
-                console.log('You hovered over a <div> tag');
-                self.extract_attri_info_to_div(event.target);
-            } else if (event.target.tagName === 'IMG') {
-                console.log('You hovered over a <div> tag');
-                self.extract_attri_info_to_div(event.target);
-            } else if (event.target.tagName === 'LI') {
-                console.log('You hovered over a <div> tag');
-                self.extract_attri_info_to_div(event.target);
-            }else if (event.target.tagName === 'DIV') {
-                console.log('You hovered over a <div> tag');
-                self.extract_attri_info_to_div(event.target);
-            }
-        });
-          
-         
-     }  
+    async init(){     
 
-     getAllElementsOfType(types) {
-        var elements = []; // 用于存放所有找到的指定类型的元素
-    
-        // 定义一个函数，用于在指定的文档中查找元素并将其添加到元素数组中
-        function findElementsInDocument(doc) {
-            types.forEach(function(type) {
-                elements.push(...Array.from(doc.querySelectorAll(type)));
-            });
-        }
-    
-        // 在当前文档中查找指定类型的元素
-        findElementsInDocument(document);
-    
+     var self=this;
 
-    
-        return elements;
+     this.createNavbar();//调用函数创建导航栏  默认隐藏
+     this.toggleDiv();
+     
+     
+     // ----------------监听导航栏 进行位置变换
+     $('#daohanglan').on('click', function() {
+         togglePosition();
+     });
+     
+
+     this.listen_mousemove_to_update_div(); //监听鼠标移动
+
+
+     // 监听按键   F2 F8  F9  alt+1
+     $(document).keydown(function(event) {
+         switch (event.keyCode) {
+             case 119: // F8键
+                 self.extractInfoAndAlert();
+                 break;
+             case 113: // F2键
+                 self.extractInfoAndAlert_simple();
+                 break;
+             case 120: // F9键
+                 alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
+                 break;
+             case 49: // 数字键1
+                 if (event.altKey) {
+                     self.copyElementXPath();
+                 }
+                 break;
+         }
+     });
     }
-    
+
 
         // -------------------------------------------创建导航信息栏
     
@@ -891,12 +812,19 @@ class MainApp{
     
       
       
-// 万能侧边栏圆形按钮
+// 万能侧边栏圆形按钮  <span id='sao_txt'>骚</span>
 
 var side_button_code = `
 
     <div id='yuananniu' class="yuananniu" title="开关">
-        骚
+        
+        <ul id="lyrics-list">
+            <li>骚</li>
+            <li>神</li>
+            <li>库</li>
+            
+            
+        </ul>
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
@@ -1029,11 +957,51 @@ function setupFloatingWindow() {
     // 更新内容
     setInterval(() => {
         $('#float_content').html($('#daohanglan').html());
+        
+
     }, 300);
     
 }
 
 
+
+function startLyricsScrolling(ulId) {
+    var lyricsContainer = $('#' + ulId).parent();
+    var lyricsList = $('#' + ulId + ' li');
+
+    var index = 0;
+    var length = lyricsList.length;
+    lyricsList.fadeOut(10);
+
+    function scrollLyrics() {
+        lyricsList.eq(index).fadeOut(1000, function() {
+            index = (index + 1) % length;
+            lyricsList.eq(index).fadeIn(1000);
+        });
+    }
+   
+
+    // var scrollInterval = setInterval(scrollLyrics, 2000); 
+
+    // 当鼠标悬停在歌词容器上时，停止滚动
+    lyricsContainer.on('mouseleave', function() {
+        clearInterval(scrollInterval);
+    });
+
+    // 当鼠标离开歌词容器时，恢复滚动
+    lyricsContainer.on('mouseenter', function() {
+        scrollInterval = setInterval(scrollLyrics, 2000);
+    });
+
+    
+    // lyricsList.eq(2).fadeIn(10);
+    // 初始化第一行歌词的淡入
+    lyricsList.eq(0).fadeIn(1000);
+    
+}
+// 调用函数来启动歌词滚动效果
+// $('#lyrics-list').fadeOut('fast');
+startLyricsScrolling('lyrics-list');
 
 
 
